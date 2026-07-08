@@ -1,184 +1,355 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" data-theme="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>المهندس أحمد أشرف | استشاري تسويق رقمي ومحاضر</title>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Tajawal:wght@300;400;500;700;900&family=Reem+Kufi:wght@400;500;600;700&family=Amiri:wght@400;700&family=Almarai:wght@300;400;700;800&display=swap" rel="stylesheet">
+<title data-ar="أحمد أشرف | استشاري تسويق رقمي ومحاضر" data-en="Ahmed Ashraf | Digital Marketing Consultant">أحمد أشرف | استشاري تسويق رقمي ومحاضر</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
   :root {
-    --primary: #818cf8;
-    --secondary: #a78bfa;
-    --accent: #22d3ee;
-    --dark: #141432;
-    --darker: #0d0d24;
-    --light: #e2e8f0;
-    --lighter: #f1f5f9;
-    --glass: rgba(255, 255, 255, 0.08);
-    --glass-border: rgba(255, 255, 255, 0.15);
-    --gradient-1: linear-gradient(135deg, #818cf8 0%, #a78bfa 50%, #22d3ee 100%);
-    --gradient-2: linear-gradient(135deg, #f472b6 0%, #a78bfa 100%);
-    --gradient-3: linear-gradient(135deg, #60a5fa 0%, #818cf8 50%, #a78bfa 100%);
+    --transition: 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  [data-theme="dark"] {
+    --bg-primary: #0d0d14;
+    --bg-secondary: #14141f;
+    --bg-tertiary: #1a1a28;
+    --bg-card: #161622;
+    --border: rgba(255, 255, 255, 0.08);
+    --border-hover: rgba(255, 255, 255, 0.15);
+    --text-primary: #f5f5f7;
+    --text-secondary: #c8c8d4;
+    --text-muted: #9898a8;
+    --accent: #d4a574;
+    --accent-hover: #e6b888;
+    --accent-soft: rgba(212, 165, 116, 0.15);
+    --gradient-1: linear-gradient(135deg, #d4a574 0%, #b8860b 100%);
+    --gradient-2: linear-gradient(135deg, #1a1a28 0%, #0d0d14 100%);
+    --shadow-soft: 0 10px 40px rgba(0, 0, 0, 0.5);
+    --shadow-hover: 0 30px 80px rgba(0, 0, 0, 0.7);
+    --shadow-glow: 0 0 60px rgba(212, 165, 116, 0.25);
+    --nav-hover-bg: rgba(212, 165, 116, 0.15);
+  }
+
+  [data-theme="light"] {
+    --bg-primary: #FAF7F2;
+    --bg-secondary: #F5EFE6;
+    --bg-tertiary: #E8DFCA;
+    --bg-card: #ffffff;
+    --border: rgba(61, 46, 31, 0.12);
+    --border-hover: rgba(184, 134, 11, 0.35);
+    --text-primary: #2C1810;
+    --text-secondary: #332315;
+    --text-muted: #312516;
+    --accent: #B8860B;
+    --accent-hover: #d4a6743f;
+    --accent-soft: rgba(184, 134, 11, 0.12);
+    --gradient-1: linear-gradient(135deg, #B8860B 0%, #D4A574 100%);
+    --gradient-2: linear-gradient(135deg, #3D2E1F 0%, #8B6F47 100%);
+    --shadow-soft: 0 10px 40px rgba(61, 46, 31, 0.1);
+    --shadow-hover: 0 30px 80px rgba(61, 46, 31, 0.911);
+    --shadow-glow: 0 0 60px rgba(184, 135, 11, 0.966);
+    --nav-hover-bg: rgba(184, 134, 11, 0.12);
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
 
   body {
-    font-family: 'Cairo', 'Tajawal', sans-serif;
-    background: var(--darker);
-    color: var(--light);
+    font-family: 'Tajawal', sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
     overflow-x: hidden;
-    cursor: none;
-    line-height: 1.6;
+    line-height: 1.7;
+    transition: background var(--transition), color var(--transition);
   }
 
-  /* Custom Cursor */
-  .cursor {
-    position: fixed;
-    width: 12px; height: 12px;
+  ::selection { background: var(--accent); color: var(--bg-primary); }
+
+  
+  /* ============ Controls Bar (الشاشات الكبيرة - معدّل) ============ */
+  .controls-bar {
+    position: absolute !important;
+    top: 50%;
+    transform: translateY(-50%); /* محاذاة عمودية سنتر مع الشريط */
+    display: flex !important;
+    gap: 15px;
+    z-index: 1001;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+  }
+
+  /* في اللغة العربية (RTL): اللوجو على اليمين -> الأزرار تطير لأقصى اليسار */
+  [dir="rtl"] .controls-bar {
+    left: 5%;
+    right: auto;
+  }
+
+  /* في اللغة الإنجليزية (LTR): اللوجو على اليسار -> الأزرار تطير لأقصى اليمين */
+  [dir="ltr"] .controls-bar {
+    right: 5%;
+    left: auto;
+  }
+  .control-btn {
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    color: var(--text-primary);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 15px;
+    backdrop-filter: blur(20px);
+    font-family: 'Tajawal', sans-serif;
+    font-weight: 700;
+  }
+  .control-btn:hover {
     background: var(--accent);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 9999;
-    transition: transform 0.15s ease, background 0.3s;
-    mix-blend-mode: difference;
-  }
-  .cursor-follower {
-    position: fixed;
-    width: 40px; height: 40px;
-    border: 2px solid var(--primary);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 9998;
-    transition: transform 0.3s ease, width 0.3s, height 0.3s;
+    color: var(--bg-primary);
+    border-color: var(--accent);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-glow);
   }
 
-  /* Lighter Animated Background */
-  .bg-animation {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    z-index: -1;
-    overflow: hidden;
-    background: radial-gradient(ellipse at top, #2a2a5e 0%, #141432 40%, #0d0d24 100%);
-  }
-  .bg-animation::before {
-    content: '';
-    position: absolute;
-    width: 700px; height: 700px;
-    background: radial-gradient(circle, rgba(129,140,248,0.35) 0%, transparent 70%);
-    top: -200px; right: -200px;
-    border-radius: 50%;
-    animation: float1 20s ease-in-out infinite;
-  }
-  .bg-animation::after {
-    content: '';
-    position: absolute;
-    width: 600px; height: 600px;
-    background: radial-gradient(circle, rgba(34,211,238,0.3) 0%, transparent 70%);
-    bottom: -150px; left: -150px;
-    border-radius: 50%;
-    animation: float2 25s ease-in-out infinite;
-  }
-  @keyframes float1 {
-    0%, 100% { transform: translate(0,0) scale(1); }
-    50% { transform: translate(-100px, 100px) scale(1.2); }
-  }
-  @keyframes float2 {
-    0%, 100% { transform: translate(0,0) scale(1); }
-    50% { transform: translate(100px, -100px) scale(1.3); }
-  }
-
-  .grid-pattern {
-    position: fixed;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(129,140,248,0.05) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(129,140,248,0.05) 1px, transparent 1px);
-    background-size: 50px 50px;
-    z-index: -1;
-    pointer-events: none;
-  }
-
-  /* ============ NAVIGATION WITH NEW LOGO FONT ============ */
+  /* ============ Navigation - محسّن ============ */
   nav {
     position: fixed;
-    top: 20px; left: 50%;
-    transform: translateX(-50%);
-    background: rgba(20,20,50,0.75);
+    top: 0; left: 0; right: 0;
+    padding: 12px 5%; /* تقليل الحشو الافتراضي */
+    z-index: 1000;
+    transition: all 0.4s;
+    background: transparent;
+  }
+  nav.scrolled {
+    background: var(--bg-primary);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border: 1px solid var(--glass-border);
-    border-radius: 50px;
-    padding: 12px 30px;
-    z-index: 1000;
-    display: flex;
-    gap: 30px;
-    align-items: center;
-    transition: all 0.3s;
-    max-width: 95%;
+    padding: 8px 5%; /* جعل الشريط أنيقاً ونحيفاً جداً عند النزول لأسفل */
+    border-bottom: 1px solid var(--border);
+    box-shadow: var(--shadow-soft);
   }
-  nav.scrolled { background: rgba(20,20,50,0.95); box-shadow: 0 10px 40px rgba(129,140,248,0.25); }
-
-  /* New Logo Style - Almarai Font */
-  .logo {
-    font-family: 'Almarai', 'Cairo', sans-serif;
-    font-weight: 800;
-    font-size: 20px;
-    background: var(--gradient-1);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    letter-spacing: 0.3px;
-    white-space: nowrap;
-  }
-
-  nav a {
-    color: var(--light);
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 14px;
-    position: relative;
-    transition: color 0.3s;
-    white-space: nowrap;
-  }
-  nav a::after {
-    content: '';
-    position: absolute;
-    bottom: -5px; right: 0;
-    width: 0; height: 2px;
-    background: var(--gradient-1);
-    transition: width 0.3s;
-  }
-  nav a:hover { color: var(--accent); }
-  nav a:hover::after { width: 100%; }
-
-  /* Hero Section */
-  .hero {
-    min-height: 100vh;
+  .nav-container {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 120px 8% 60px;
-    position: relative;
-    perspective: 1500px;
-    gap: 40px;
+    width: 100%;
+    max-width: 1920px;
+    margin: 0 auto;
+    gap: 30px;
   }
-  .hero-content { flex: 1; max-width: 600px; z-index: 2; }
-  .hero-badge {
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+
+  [dir="rtl"] .nav-logo { 
+    order: 1;
+    margin-right: 25px;
+    margin-left: 0;
+  }
+
+  [dir="ltr"] .nav-logo { 
+    order: 1;
+    margin-left: 25px;
+    margin-right: 0;
+  }
+  .nav-logo img {
+    height: 75px; /* الارتفاع الجديد المتناسق للشعار */
+    width: auto;
+    transition: all var(--transition);
+    filter: drop-shadow(0 4px 12px rgba(0,0,0,0.2));
+  }
+  nav.scrolled .nav-logo img {
+    height: 55px; /* تصغير ذكي إضافي للشعار عند سكرول لأسفل لجعل الشريط أنحف */
+  }
+  .nav-logo:hover img { transform: scale(1.05); }
+  [data-theme="dark"] .nav-logo img { mix-blend-mode: screen; }
+  [data-theme="light"] .nav-logo img { filter: brightness(0.95) drop-shadow(0 4px 12px rgba(0,0,0,0.1)); }
+
+  .nav-links {
+    display: flex;
+    gap: 5px;
+    list-style: none;
+    align-items: center;
+    order: 2;
+    flex: 1;
+    justify-content: center;
+  }
+  .nav-links a {
+    color: var(--text-primary);
+    text-decoration: none;
+    font-size: 17px; /* حجم خط ممتاز لمنع التداخل على شاشات اللابتوب المتوسطة */
+    font-weight: 700;
+    position: relative;
+    transition: all 0.3s ease;
+    padding: 8px 14px; /* تقليص الحشو الداخلي للروابط */
+    border-radius: 12px;
+    white-space: nowrap;
+  }
+  .nav-links a::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--nav-hover-bg);
+    border-radius: 12px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 6px;
+    right: 18px; left: 18px;
+    height: 2px;
+    background: var(--accent);
+    border-radius: 2px;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+  }
+  .nav-links a:hover { color: var(--accent); }
+  .nav-links a:hover::before { opacity: 1; }
+  .nav-links a:hover::after { transform: scaleX(1); }
+
+  .nav-cta {
+    padding: 10px 24px;
+    background: var(--accent);
+    color: var(--bg-primary);
+    border-radius: 50px;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.3s;
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    padding: 8px 18px;
-    background: var(--glass);
-    border: 1px solid var(--glass-border);
-    border-radius: 50px;
+    border: 1.5px solid var(--accent);
+    order: 3;
+    flex-shrink: 0;
+  }
+  [dir="ltr"] .nav-cta { order: 1; }
+  .nav-cta:hover {
+    background: transparent;
+    color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-glow);
+  }
+
+  .menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 22px;
+    color: var(--text-primary);
+    cursor: pointer;
+  }
+
+  /* ============ Floating WhatsApp Button ============ */
+  .whatsapp-float {
+    position: fixed;
+    bottom: 30px;
+    left: 30px;
+    width: 50px;
+    height: 50px;
+    background: #25D366;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-decoration: none;
+    font-size: 32px;
+    z-index: 999;
+    box-shadow: 0 8px 25px rgba(37, 211, 102, 0.5);
+    transition: all 0.3s;
+    animation: pulse-whatsapp 2s infinite;
+  }
+  [dir="ltr"] .whatsapp-float {
+    left: auto;
+    right: 30px;
+  }
+  .whatsapp-float:hover {
+    transform: scale(1.1) rotate(10deg);
+    box-shadow: 0 12px 35px rgba(37, 211, 102, 0.7);
+  }
+  .whatsapp-float::before {
+    content: '';
+    position: absolute;
+    inset: -5px;
+    border-radius: 50%;
+    border: 2px solid rgba(37, 211, 102, 0.4);
+    animation: ripple 2s infinite;
+  }
+  .whatsapp-float .tooltip {
+    position: absolute;
+    right: 80px;
+    background: var(--bg-card);
+    color: var(--text-primary);
+    padding: 10px 18px;
+    border-radius: 12px;
     font-size: 13px;
+    font-weight: 700;
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateX(10px);
+    transition: all 0.3s;
+    pointer-events: none;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-soft);
+  }
+  [dir="ltr"] .whatsapp-float .tooltip {
+    right: auto;
+    left: 80px;
+    transform: translateX(-10px);
+  }
+  .whatsapp-float:hover .tooltip {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  @keyframes pulse-whatsapp {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+  }
+  @keyframes ripple {
+    0% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(1.4); opacity: 0; }
+  }
+
+  /* ============ Hero ============ */
+  .hero {
+    min-height: 100vh;
+    padding: 140px 6% 80px;
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 60px;
+    align-items: center;
+    position: relative;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 20%; left: -10%;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, var(--accent-soft) 0%, transparent 70%);
+    border-radius: 50%;
+    filter: blur(60px);
+    z-index: 0;
+  }
+  .hero-content { position: relative; z-index: 2; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 8px 18px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 50px;
+    font-size: 13px; font-weight: 700;
+    color: var(--text-secondary);
     margin-bottom: 25px;
-    backdrop-filter: blur(10px);
-    animation: fadeInUp 0.8s ease;
   }
   .hero-badge .dot {
     width: 8px; height: 8px;
@@ -192,257 +363,210 @@
     50% { opacity: 0.6; transform: scale(1.3); }
   }
   .hero h1 {
-    font-size: clamp(2rem, 4.5vw, 3.8rem);
+    font-size: clamp(2.5rem, 5.5vw, 4.5rem);
     font-weight: 900;
-    line-height: 1.3;
-    margin-bottom: 20px;
-    animation: fadeInUp 1s ease 0.2s backwards;
+    line-height: 1.15;
+    color: var(--text-primary);
+    margin-bottom: 25px;
+    letter-spacing: -1px;
   }
-  .hero h1 .gradient-text {
-    background: var(--gradient-1);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    display: inline-block;
-  }
+  .hero h1 .accent { color: var(--accent); }
   .hero .subtitle {
-    font-size: clamp(1rem, 2vw, 1.3rem);
-    color: #cbd5e1;
+    font-size: 1.15rem; font-weight: 700;
+    color: var(--text-secondary);
     margin-bottom: 15px;
-    font-weight: 500;
-    animation: fadeInUp 1s ease 0.4s backwards;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .hero .subtitle::before {
+    content: '';
+    width: 30px; height: 2px;
+    background: var(--accent);
   }
   .hero .description {
-    font-size: 1rem;
-    color: #94a3b8;
-    line-height: 1.8;
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+    line-height: 1.9;
     margin-bottom: 35px;
-    animation: fadeInUp 1s ease 0.6s backwards;
+    max-width: 550px;
   }
-  .hero-buttons {
-    display: flex;
-    gap: 15px;
-    flex-wrap: wrap;
-    animation: fadeInUp 1s ease 0.8s backwards;
-  }
-  .btn {
-    padding: 14px 32px;
+  .hero-buttons { display: flex; gap: 15px; flex-wrap: wrap; }
+  .btn-primary {
+    padding: 16px 36px;
+    background: var(--accent);
+    color: var(--bg-primary);
     border-radius: 50px;
-    font-family: inherit;
-    font-size: 15px;
-    font-weight: 600;
-    cursor: none;
     text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
+    font-size: 15px; font-weight: 700;
+    display: inline-flex; align-items: center; gap: 10px;
+    transition: all 0.4s;
+    border: 1.5px solid var(--accent);
+  }
+  .btn-primary:hover {
+    background: transparent;
+    color: var(--accent);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-glow);
+  }
+  .btn-outline {
+    padding: 16px 36px;
+    background: transparent;
+    color: var(--text-primary);
+    border: 1.5px solid var(--border);
+    border-radius: 50px;
+    text-decoration: none;
+    font-size: 15px; font-weight: 700;
+    display: inline-flex; align-items: center; gap: 10px;
     transition: all 0.3s;
-    border: none;
-    position: relative;
-    overflow: hidden;
   }
-  .btn-whatsapp {
-    background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
-    color: white;
-    box-shadow: 0 10px 30px rgba(37,211,102,0.4);
-  }
-  .btn-whatsapp:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 15px 40px rgba(37,211,102,0.6);
-  }
-  .btn-secondary {
-    background: var(--glass);
-    color: var(--light);
-    border: 1px solid var(--glass-border);
-    backdrop-filter: blur(10px);
-  }
-  .btn-secondary:hover {
-    background: rgba(255,255,255,0.15);
+  .btn-outline:hover {
+    border-color: var(--accent);
+    color: var(--accent);
     transform: translateY(-3px);
   }
 
-  /* 3D Name Scene */
-  .hero-3d {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  .hero-visual {
+    position: relative;
     height: 600px;
-    position: relative;
     perspective: 1500px;
-    min-width: 300px;
   }
-  .name-scene {
-    width: 450px; height: 450px;
-    position: relative;
-    transform-style: preserve-3d;
-    transition: transform 0.3s ease-out;
-  }
-  .ring {
+  .hero-image-wrapper {
     position: absolute;
-    top: 50%; left: 50%;
-    border-radius: 50%;
-    border: 2px solid transparent;
-    transform-style: preserve-3d;
-  }
-  .ring-1 {
-    width: 420px; height: 420px;
-    margin: -210px 0 0 -210px;
-    border-top-color: var(--primary);
-    border-right-color: var(--accent);
-    animation: rotateRing 12s linear infinite;
-    filter: drop-shadow(0 0 15px rgba(129,140,248,0.5));
-  }
-  .ring-2 {
-    width: 360px; height: 360px;
-    margin: -180px 0 0 -180px;
-    border-bottom-color: var(--secondary);
-    border-left-color: var(--primary);
-    animation: rotateRing 10s linear infinite reverse;
-    filter: drop-shadow(0 0 15px rgba(167,139,250,0.5));
-  }
-  .ring-3 {
-    width: 300px; height: 300px;
-    margin: -150px 0 0 -150px;
-    border-top-color: var(--accent);
-    border-right-color: var(--secondary);
-    animation: rotateRing 8s linear infinite;
-    filter: drop-shadow(0 0 15px rgba(34,211,238,0.5));
-  }
-  @keyframes rotateRing {
-    from { transform: rotateX(70deg) rotateZ(0deg); }
-    to { transform: rotateX(70deg) rotateZ(360deg); }
-  }
-  .name-card {
-    position: absolute;
-    top: 50%; left: 50%;
-    width: 320px;
-    transform: translate(-50%, -50%);
-    transform-style: preserve-3d;
-    animation: floatCard 6s ease-in-out infinite;
-  }
-  @keyframes floatCard {
-    0%, 100% { transform: translate(-50%, -50%) translateZ(0) rotateY(0deg); }
-    25% { transform: translate(-50%, -50%) translateZ(40px) rotateY(8deg); }
-    50% { transform: translate(-50%, -50%) translateZ(60px) rotateY(0deg); }
-    75% { transform: translate(-50%, -50%) translateZ(40px) rotateY(-8deg); }
-  }
-  .name-card-inner {
-    background: linear-gradient(135deg, rgba(129,140,248,0.15), rgba(167,139,250,0.1), rgba(34,211,238,0.15));
-    backdrop-filter: blur(25px);
-    -webkit-backdrop-filter: blur(25px);
-    border: 1px solid rgba(255,255,255,0.2);
-    border-radius: 25px;
-    padding: 35px 30px;
-    text-align: center;
-    box-shadow:
-      0 25px 60px rgba(129,140,248,0.3),
-      0 0 100px rgba(167,139,250,0.15) inset;
-    position: relative;
+    inset: 0;
+    border-radius: 300px 300px 30px 30px;
     overflow: hidden;
+    background: var(--gradient-2);
+    box-shadow: var(--shadow-hover);
+    transform: rotate(-3deg);
+    transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
   }
-  .name-card-inner::before {
+  .hero-image-wrapper:hover { transform: rotate(0deg) scale(1.02); }
+  .hero-image-inner {
+    width: 100%; height: 100%;
+    position: relative; overflow: hidden;
+  }
+  .hero-image-inner img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: center top;
+  }
+  .hero-image-inner::after {
     content: '';
-    position: absolute;
-    top: -50%; left: -50%;
-    width: 200%; height: 200%;
-    background: conic-gradient(from 0deg, transparent, rgba(129,140,248,0.2), transparent, rgba(34,211,238,0.2), transparent);
-    animation: rotateGlow 8s linear infinite;
-    z-index: -1;
-  }
-  @keyframes rotateGlow { to { transform: rotate(360deg); } }
-  .name-title {
-    font-family: 'Amiri', serif;
-    font-size: 14px;
-    color: var(--accent);
-    letter-spacing: 3px;
-    margin-bottom: 10px;
-    font-weight: 700;
-    text-transform: uppercase;
-  }
-  .name-main {
-    font-family: 'Reem Kufi', sans-serif;
-    font-size: 42px;
-    font-weight: 700;
-    line-height: 1.2;
-    background: linear-gradient(135deg, #ffffff 0%, #818cf8 40%, #22d3ee 80%, #ffffff 100%);
-    background-size: 200% auto;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    animation: shineText 4s linear infinite;
-    margin-bottom: 8px;
-  }
-  @keyframes shineText { to { background-position: 200% center; } }
-  .name-divider {
-    width: 60px; height: 2px;
-    background: var(--gradient-1);
-    margin: 15px auto;
-    border-radius: 2px;
-    box-shadow: 0 0 15px var(--primary);
-  }
-  .name-role {
-    font-family: 'Cairo', sans-serif;
-    font-size: 14px;
-    color: #cbd5e1;
-    font-weight: 500;
-    letter-spacing: 1px;
-  }
-  .name-role i { color: var(--accent); margin-left: 6px; }
-  .floating-icon {
-    position: absolute;
-    width: 55px; height: 55px;
-    background: rgba(20,20,50,0.8);
-    backdrop-filter: blur(15px);
-    border: 1px solid var(--glass-border);
-    border-radius: 15px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 22px;
-    color: var(--accent);
-    box-shadow: 0 10px 30px rgba(129,140,248,0.3);
-    animation: floatIcon 5s ease-in-out infinite;
-  }
-  .floating-icon i { background: var(--gradient-1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-  .fi-1 { top: 5%; right: 5%; animation-delay: 0s; }
-  .fi-2 { top: 15%; left: 0%; animation-delay: -1s; }
-  .fi-3 { bottom: 15%; right: 0%; animation-delay: -2s; }
-  .fi-4 { bottom: 5%; left: 10%; animation-delay: -3s; }
-  .fi-5 { top: 45%; right: -5%; animation-delay: -4s; }
-  @keyframes floatIcon {
-    0%, 100% { transform: translateY(0) rotate(0deg); }
-    50% { transform: translateY(-20px) rotate(10deg); }
-  }
-  .orb {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(50px);
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, transparent 40%, var(--bg-primary) 100%);
     opacity: 0.5;
-    animation: orbFloat 8s ease-in-out infinite;
   }
-  .orb-1 { width: 180px; height: 180px; background: #818cf8; top: 10%; right: 10%; }
-  .orb-2 { width: 130px; height: 130px; background: #22d3ee; bottom: 20%; left: 5%; animation-delay: -3s; }
-  .orb-3 { width: 100px; height: 100px; background: #f472b6; top: 50%; right: 30%; animation-delay: -5s; }
-  @keyframes orbFloat {
-    0%, 100% { transform: translate(0,0); }
-    50% { transform: translate(30px, -30px); }
+  .floating-card {
+    position: absolute;
+    background: var(--bg-card);
+    padding: 20px 25px;
+    border-radius: 20px;
+    box-shadow: var(--shadow-hover);
+    display: flex; align-items: center; gap: 15px;
+    z-index: 3;
+    border: 1px solid var(--border);
+    backdrop-filter: blur(20px);
+  }
+  .floating-card.card-1 { top: 15%; right: -30px; animation: floatCard 6s ease-in-out infinite; }
+  .floating-card.card-2 { bottom: 20%; left: -40px; animation: floatCard 6s ease-in-out infinite 2s; }
+  @keyframes floatCard {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+  }
+  .floating-icon {
+    width: 50px; height: 50px;
+    background: var(--gradient-1);
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--bg-primary);
+    font-size: 20px;
+  }
+  .floating-text strong {
+    display: block;
+    font-size: 22px; font-weight: 900;
+    color: var(--text-primary);
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .floating-text span {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-weight: 500;
   }
 
-  /* Stats Bar */
+  .marquee {
+    padding: 50px 0;
+    background: var(--bg-secondary);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+  }
+  .marquee-track {
+    display: flex; gap: 50px;
+    animation: scroll 20s linear infinite;
+    white-space: nowrap;
+  }
+  [dir="rtl"] .marquee-track { animation-direction: reverse; }
+  @keyframes scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  .marquee-item {
+    font-size: 1.8rem; font-weight: 800;
+    color: var(--text-secondary);
+    display: flex; align-items: center; gap: 50px;
+  }
+  .marquee-item .dot {
+    width: 10px; height: 10px;
+    background: var(--accent);
+    border-radius: 50%;
+  }
+
+  section { padding: 120px 6%; position: relative; }
+  .section-label {
+    display: inline-flex; align-items: center; gap: 15px;
+    font-size: 13px; font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--accent);
+    margin-bottom: 20px;
+  }
+  .section-label .num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px; font-weight: 600;
+    color: var(--accent);
+  }
+  .section-label .line {
+    width: 40px; height: 2px;
+    background: var(--accent);
+  }
+  .section-title {
+    font-size: clamp(2rem, 4.5vw, 3.5rem);
+    font-weight: 900;
+    line-height: 1.2;
+    color: var(--text-primary);
+    margin-bottom: 20px;
+    letter-spacing: -0.5px;
+  }
+  .section-title .accent { color: var(--accent); }
+  .section-subtitle {
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+    max-width: 600px;
+    line-height: 1.9;
+  }
+
   .stats-bar {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 20px;
-    padding: 40px 8%;
-    margin-top: 40px;
+    padding: 60px 6%;
+    margin-top: 0;
+    position: relative;
+    z-index: 3;
   }
   .stat-card {
-    background: var(--glass);
-    border: 1px solid var(--glass-border);
-    backdrop-filter: blur(20px);
+    background: var(--bg-card);
+    border: 1px solid var(--border);
     border-radius: 20px;
-    padding: 30px;
+    padding: 30px 25px;
     text-align: center;
     transition: all 0.4s;
     position: relative;
@@ -458,203 +582,216 @@
     transform-origin: right;
     transition: transform 0.4s;
   }
-  .stat-card:hover { transform: translateY(-10px); border-color: rgba(129,140,248,0.5); }
+  .stat-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-hover);
+    border-color: var(--accent);
+  }
   .stat-card:hover::before { transform: scaleX(1); }
   .stat-number {
-    font-size: 3rem;
-    font-weight: 900;
-    background: var(--gradient-1);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-  .stat-label { color: #cbd5e1; font-size: 0.95rem; margin-top: 5px; }
-
-  /* Section Titles */
-  section { padding: 100px 8%; position: relative; }
-  .section-header { text-align: center; margin-bottom: 70px; }
-  .section-tag {
-    display: inline-block;
-    padding: 6px 16px;
-    background: var(--glass);
-    border: 1px solid var(--glass-border);
-    border-radius: 50px;
-    font-size: 13px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 2.8rem; font-weight: 600;
     color: var(--accent);
-    margin-bottom: 15px;
-    backdrop-filter: blur(10px);
+    display: block;
+    margin-bottom: 5px;
   }
-  .section-title {
-    font-family: 'Reem Kufi', sans-serif;
-    font-size: clamp(1.8rem, 4vw, 3rem);
-    font-weight: 700;
-    margin-bottom: 15px;
-  }
-  .section-subtitle { color: #cbd5e1; max-width: 600px; margin: 0 auto; font-size: clamp(0.9rem, 2vw, 1rem); }
-
-  /* ============ SERVICES - 3 COLUMNS GRID ============ */
-  .services-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 25px;
-  }
-  .service-card {
-    background: var(--glass);
-    border: 1px solid var(--glass-border);
-    backdrop-filter: blur(20px);
-    border-radius: 24px;
-    padding: 35px 28px;
-    transition: all 0.4s;
-    position: relative;
-    overflow: hidden;
-    transform-style: preserve-3d;
-  }
-  .service-card:hover {
-    transform: translateY(-15px) rotateX(5deg);
-    border-color: transparent;
-    box-shadow: 0 30px 60px rgba(129,140,248,0.3);
-  }
-  .service-icon {
-    width: 65px; height: 65px;
-    background: var(--gradient-1);
-    border-radius: 18px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 28px;
-    color: white;
-    margin-bottom: 22px;
-    box-shadow: 0 10px 30px rgba(129,140,248,0.4);
-    transition: transform 0.4s;
-  }
-  .service-card:hover .service-icon { transform: rotateY(360deg) scale(1.1); }
-  .service-card h3 { font-size: 1.25rem; margin-bottom: 12px; font-weight: 700; font-family: 'Reem Kufi', sans-serif; }
-  .service-card p { color: #cbd5e1; line-height: 1.75; font-size: 0.92rem; }
-  .service-card .service-number {
-    position: absolute;
-    top: 20px; left: 25px;
-    font-size: 3.5rem;
-    font-weight: 900;
-    color: rgba(255,255,255,0.05);
-    font-family: 'Reem Kufi', sans-serif;
+  .stat-label {
+    font-size: 0.95rem; font-weight: 700;
+    color: var(--text-secondary);
   }
 
-  /* About */
-  .about-container {
+  .about {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 80px;
     align-items: center;
   }
-  .about-image { position: relative; perspective: 1000px; }
-  .about-image-wrapper {
-    width: 100%;
-    aspect-ratio: 1;
-    max-width: 450px;
-    margin: 0 auto;
-    position: relative;
-    transform-style: preserve-3d;
-    transition: transform 0.5s;
-  }
-  .about-image-wrapper:hover { transform: rotateY(-10deg) rotateX(5deg); }
-  .about-image-bg {
-    position: absolute;
-    inset: 0;
-    background: var(--gradient-1);
-    border-radius: 30px;
-    transform: translateZ(-30px);
-    filter: blur(25px);
-    opacity: 0.5;
-  }
+  .about-visual { position: relative; height: 600px; }
   .about-image-main {
-    position: relative;
-    width: 100%; height: 100%;
-    background: linear-gradient(135deg, #2a2a5e, #3d2a6e);
-    border-radius: 30px;
-    border: 1px solid var(--glass-border);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-  }
-  .about-avatar {
-    font-size: 180px;
-    background: var(--gradient-1);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-  .floating-badge {
     position: absolute;
-    background: rgba(20,20,50,0.9);
-    backdrop-filter: blur(20px);
-    border: 1px solid var(--glass-border);
-    padding: 15px 20px;
-    border-radius: 15px;
+    top: 0; right: 0;
+    width: 85%; height: 85%;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: var(--shadow-hover);
+  }
+  .about-image-main img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: center top;
+  }
+  .about-image-accent {
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 50%; height: 50%;
+    background: var(--gradient-2);
+    border-radius: 20px;
+    padding: 30px;
+    color: var(--bg-primary);
     display: flex;
-    align-items: center;
-    gap: 12px;
-    animation: floatBadge 4s ease-in-out infinite;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: var(--shadow-hover);
   }
-  .floating-badge i { font-size: 24px; color: var(--accent); }
-  .floating-badge .badge-text { font-size: 13px; }
-  .floating-badge .badge-text strong { display: block; font-size: 15px; }
-  .badge-1 { top: 10%; right: -20px; animation-delay: 0s; }
-  .badge-2 { bottom: 15%; left: -20px; animation-delay: -2s; }
-  @keyframes floatBadge {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-15px); }
+  .about-image-accent .big-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 4.5rem; font-weight: 600;
+    color: var(--accent);
+    line-height: 1;
   }
-
-  .about-content h2 { font-family: 'Reem Kufi', sans-serif; font-size: clamp(1.6rem, 3vw, 2.5rem); margin-bottom: 20px; font-weight: 700; }
-  .about-content p { color: #cbd5e1; line-height: 2; margin-bottom: 20px; }
+  .about-image-accent .label {
+    font-size: 13px; font-weight: 700;
+    letter-spacing: 1.5px;
+    opacity: 0.85;
+  }
+  .about-image-accent .divider {
+    width: 40px; height: 2px;
+    background: var(--accent);
+  }
+  .about-content p {
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+    line-height: 2;
+    margin-bottom: 20px;
+  }
   .about-features {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 15px;
+    gap: 12px;
     margin-top: 30px;
   }
   .feature-item {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 15px;
-    background: var(--glass);
-    border: 1px solid var(--glass-border);
+    display: flex; align-items: center; gap: 12px;
+    padding: 14px 18px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
     border-radius: 12px;
     transition: all 0.3s;
+    font-weight: 700; font-size: 0.95rem;
+    color: var(--text-primary);
   }
-  .feature-item:hover { border-color: var(--primary); transform: translateX(-5px); }
+  .feature-item:hover {
+    border-color: var(--accent);
+    transform: translateX(-5px);
+  }
   .feature-item i { color: var(--accent); font-size: 18px; }
 
-  /* Skills */
+  .services { background: var(--bg-secondary); }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--border);
+  }
+  .service-card {
+    padding: 50px 40px;
+    border-bottom: 1px solid var(--border);
+    border-left: 1px solid var(--border);
+    position: relative;
+    transition: all 0.5s;
+    overflow: hidden;
+    background: var(--bg-secondary);
+  }
+  .service-card:nth-child(2n) { border-left: none; }
+  .service-card::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: var(--gradient-2);
+    transform: translateY(100%);
+    transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+    z-index: 0;
+  }
+  .service-card:hover::before { transform: translateY(0); }
+  .service-card > * { position: relative; z-index: 1; transition: color 0.5s; }
+  .service-card:hover > * { color: var(--bg-primary); }
+  [data-theme="dark"] .service-card:hover > * { color: var(--accent); }
+  .service-card:hover .service-num { color: var(--accent); }
+  .service-card:hover .service-icon {
+    background: var(--accent);
+    color: var(--bg-primary);
+    border-color: var(--accent);
+  }
+  .service-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 25px;
+  }
+  .service-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px; font-weight: 600;
+    color: var(--accent);
+    letter-spacing: 2px;
+  }
+  .service-icon {
+    width: 60px; height: 60px;
+    background: var(--bg-card);
+    border: 1.5px solid var(--border);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    color: var(--text-primary);
+    transition: all 0.5s;
+  }
+  .service-card h3 {
+    font-size: 1.8rem; font-weight: 900;
+    margin-bottom: 15px;
+    color: var(--text-primary);
+  }
+  .service-card p {
+    color: var(--text-secondary);
+    line-height: 1.9;
+    font-size: 0.95rem;
+  }
+  .service-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 20px; }
+  .service-tag {
+    padding: 5px 14px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    border-radius: 50px;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
   .skills-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: 20px;
+    margin-top: 60px;
   }
   .skill-card {
-    background: var(--glass);
-    border: 1px solid var(--glass-border);
-    backdrop-filter: blur(20px);
-    border-radius: 20px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
     padding: 25px;
     transition: all 0.3s;
   }
-  .skill-card:hover { transform: translateY(-5px); border-color: var(--primary); }
+  .skill-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--accent);
+    box-shadow: var(--shadow-soft);
+  }
   .skill-header {
     display: flex;
     justify-content: space-between;
     margin-bottom: 15px;
     align-items: center;
-    gap: 10px;
   }
-  .skill-name { font-weight: 600; display: flex; align-items: center; gap: 10px; font-size: 0.95rem; }
-  .skill-name i { color: var(--accent); }
-  .skill-percent { color: var(--accent); font-weight: 700; white-space: nowrap; }
+  .skill-name {
+    font-weight: 800; font-size: 1rem;
+    display: flex; align-items: center; gap: 10px;
+    color: var(--text-primary);
+  }
+  .skill-name i { color: var(--accent); font-size: 18px; }
+  .skill-percent {
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--accent); font-weight: 600;
+    font-size: 1rem;
+  }
   .skill-bar {
     height: 8px;
-    background: rgba(255,255,255,0.08);
+    background: var(--bg-secondary);
     border-radius: 10px;
     overflow: hidden;
   }
@@ -664,1004 +801,796 @@
     border-radius: 10px;
     width: 0;
     transition: width 1.5s ease;
-    box-shadow: 0 0 10px rgba(129,140,248,0.5);
   }
 
-  /* Projects */
+  .projects { background: var(--bg-secondary); }
   .projects-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 25px;
+    margin-top: 60px;
   }
   .project-card {
-    background: var(--glass);
-    border: 1px solid var(--glass-border);
-    backdrop-filter: blur(20px);
-    border-radius: 24px;
-    overflow: hidden;
-    transition: all 0.4s;
-    transform-style: preserve-3d;
     position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    background: var(--bg-card);
+    border: 1px solid var(--border);
   }
   .project-card:hover {
-    transform: translateY(-10px) rotateX(3deg);
-    box-shadow: 0 30px 60px rgba(129,140,248,0.25);
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-hover);
+    border-color: var(--accent);
   }
   .project-image {
-    height: 200px;
-    background: var(--gradient-1);
+    height: 220px;
     position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 80px;
-    color: white;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 70px;
+    color: rgba(255,255,255,0.5);
     overflow: hidden;
-  }
-  .project-image::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.25), transparent 60%);
+    background: var(--gradient-2);
   }
   .project-content { padding: 25px; }
   .project-category {
     display: inline-block;
-    padding: 4px 12px;
-    background: rgba(34,211,238,0.15);
+    padding: 5px 14px;
+    background: var(--accent-soft);
     color: var(--accent);
     border-radius: 50px;
-    font-size: 12px;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
     margin-bottom: 12px;
   }
-  .project-card h3 { font-size: 1.2rem; margin-bottom: 10px; font-family: 'Reem Kufi', sans-serif; }
-  .project-card p { color: #cbd5e1; font-size: 0.88rem; line-height: 1.7; margin-bottom: 15px; }
+  .project-card h3 {
+    font-size: 1.4rem; font-weight: 900;
+    margin-bottom: 10px;
+    color: var(--text-primary);
+  }
+  .project-card p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.8;
+    margin-bottom: 15px;
+  }
   .project-tags { display: flex; gap: 8px; flex-wrap: wrap; }
   .project-tag {
-    padding: 4px 10px;
-    background: rgba(255,255,255,0.08);
-    border-radius: 8px;
-    font-size: 11px;
-    color: #e2e8f0;
+    padding: 4px 12px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 50px;
+    font-size: 11px; font-weight: 700;
+    color: var(--text-secondary);
   }
 
-  /* Testimonials */
-  .testimonials-grid {
+  .testimonials-container {
+    margin-top: 60px;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 25px;
   }
   .testimonial-card {
-    background: var(--glass);
-    border: 1px solid var(--glass-border);
-    backdrop-filter: blur(20px);
-    border-radius: 24px;
-    padding: 35px;
+    background: var(--bg-card);
+    padding: 40px 30px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
     position: relative;
-    transition: all 0.4s;
+    transition: all 0.5s;
   }
-  .testimonial-card:hover { transform: translateY(-10px); border-color: var(--primary); }
-  .testimonial-card .quote-icon {
+  .testimonial-card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-hover);
+    border-color: var(--accent);
+  }
+  .testimonial-quote {
+    font-size: 5rem;
+    color: var(--accent);
+    line-height: 1;
     position: absolute;
-    top: 20px; left: 25px;
-    font-size: 50px;
-    color: rgba(129,140,248,0.2);
+    top: 15px; left: 25px;
+    opacity: 0.2;
+    font-family: serif;
+    
+  }
+  [dir="ltr"] .testimonial-quote {
+  left: auto !important;     /* إلغاء وجودها في اليسار عند قلب اللغة للإنجليزية */
+  right: 25px !important;    /* نقلها تلقائياً إلى أقصى اليمين (الجهة المقابلة للنجوم) */
+  transform: scaleX(-1);     /* قلب اتجاه قوس الاقتباس ليتناسب مع اتجاه الخط الإنجليزي */
+}
+  .testimonial-stars {
+    color: var(--accent);
+    margin-bottom: 15px;
+    font-size: 1rem;
+    letter-spacing: 3px;
   }
   .testimonial-text {
-    color: #e2e8f0;
+    font-size: 1.05rem;
+    color: var(--text-secondary);
     line-height: 1.9;
     margin-bottom: 25px;
-    font-style: italic;
     position: relative;
     z-index: 1;
-    font-family: 'Amiri', serif;
-    font-size: 1.05rem;
   }
-  .testimonial-author { display: flex; align-items: center; gap: 15px; }
+  .testimonial-author {
+    display: flex; align-items: center; gap: 15px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+  }
   .author-avatar {
     width: 55px; height: 55px;
-    border-radius: 50%;
     background: var(--gradient-1);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
-    font-size: 20px;
-    color: white;
-    flex-shrink: 0;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--bg-primary);
+    font-size: 18px; font-weight: 900;
   }
-  .author-info strong { display: block; margin-bottom: 3px; }
-  .author-info span { color: #cbd5e1; font-size: 0.85rem; }
-  .stars { color: #fbbf24; margin-bottom: 15px; }
+  .author-info strong {
+    display: block;
+    font-size: 1rem; font-weight: 900;
+    color: var(--text-primary);
+    margin-bottom: 3px;
+  }
+  .author-info span {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
 
-  /* WhatsApp Contact */
-  .contact-container {
-    background: var(--glass);
-    border: 1px solid var(--glass-border);
-    backdrop-filter: blur(20px);
-    border-radius: 30px;
-    padding: 50px;
+  .whatsapp-section {
+    background: var(--gradient-2);
+    color: var(--bg-primary);
     text-align: center;
     position: relative;
     overflow: hidden;
   }
-  .contact-container::before {
+  .whatsapp-section::before {
     content: '';
     position: absolute;
-    top: -50%; left: -50%;
-    width: 200%; height: 200%;
-    background: radial-gradient(circle, rgba(37,211,102,0.1) 0%, transparent 50%);
-    animation: rotateGlow 20s linear infinite;
-    z-index: -1;
+    top: 10%; right: -10%;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(212, 165, 116, 0.15) 0%, transparent 70%);
+    border-radius: 50%;
+    filter: blur(80px);
   }
-  .whatsapp-icon-big {
-    width: 110px; height: 110px;
-    background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
-    border-radius: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 55px;
-    color: white;
-    margin: 0 auto 25px;
-    box-shadow: 0 20px 50px rgba(37,211,102,0.4);
-    animation: pulseWhatsapp 2.5s ease-in-out infinite;
-  }
-  @keyframes pulseWhatsapp {
-    0%, 100% { transform: scale(1); box-shadow: 0 20px 50px rgba(37,211,102,0.4); }
-    50% { transform: scale(1.05); box-shadow: 0 25px 60px rgba(37,211,102,0.6); }
-  }
-  .contact-container h3 {
-    font-family: 'Reem Kufi', sans-serif;
-    font-size: clamp(1.5rem, 3vw, 2.2rem);
-    margin-bottom: 15px;
-  }
-  .contact-container > p {
-    color: #cbd5e1;
-    font-size: 1.05rem;
-    line-height: 1.8;
-    max-width: 600px;
-    margin: 0 auto 35px;
+  .whatsapp-section .section-label { color: var(--accent); }
+  .whatsapp-section .section-title { color: var(--text-primary); }
+  .whatsapp-section .section-subtitle {
+    color: var(--text-secondary);
+    margin: 0 auto 40px;
   }
   .whatsapp-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 12px;
-    padding: 18px 45px;
-    background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+    display: inline-flex; align-items: center; gap: 15px;
+    padding: 20px 50px;
+    background: #25D366;
     color: white;
     text-decoration: none;
     border-radius: 50px;
-    font-size: 18px;
-    font-weight: 700;
-    font-family: 'Reem Kufi', sans-serif;
-    box-shadow: 0 15px 40px rgba(37,211,102,0.4);
-    transition: all 0.3s;
-    position: relative;
-    overflow: hidden;
+    font-size: 1.2rem; font-weight: 900;
+    transition: all 0.4s;
+    box-shadow: 0 15px 40px rgba(37, 211, 102, 0.3);
+    margin-bottom: 50px;
   }
-  .whatsapp-btn::before {
-    content: '';
-    position: absolute;
-    top: 0; right: -100%;
-    width: 100%; height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-    transition: right 0.6s;
-  }
-  .whatsapp-btn:hover::before { right: 100%; }
   .whatsapp-btn:hover {
     transform: translateY(-5px) scale(1.03);
-    box-shadow: 0 20px 50px rgba(37,211,102,0.6);
+    box-shadow: 0 20px 50px rgba(37, 211, 102, 0.5);
   }
-  .contact-features {
+  .whatsapp-btn i { font-size: 1.5rem; }
+  .whatsapp-features {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    grid-template-columns: repeat(4, 1fr);
     gap: 20px;
-    margin-top: 50px;
-    padding-top: 40px;
-    border-top: 1px solid var(--glass-border);
+    max-width: 1000px;
+    margin: 0 auto;
+    padding-top: 50px;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
   }
-  .contact-feature {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    padding: 20px;
-  }
-  .contact-feature i {
+  .whatsapp-feature { text-align: center; }
+  .whatsapp-feature i {
     font-size: 28px;
-    background: var(--gradient-1);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--accent);
+    margin-bottom: 12px;
   }
-  .contact-feature strong { font-family: 'Reem Kufi', sans-serif; }
-  .contact-feature span { color: #cbd5e1; font-size: 0.88rem; }
+  .whatsapp-feature strong {
+    display: block;
+    font-size: 1rem; font-weight: 900;
+    color: var(--text-primary);
+    margin-bottom: 5px;
+  }
+  .whatsapp-feature span {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+  }
 
-  /* Footer */
   footer {
-    padding: 40px 8%;
-    text-align: center;
-    border-top: 1px solid var(--glass-border);
-    background: rgba(13,13,36,0.5);
+    background: var(--bg-secondary);
+    padding: 60px 6% 30px;
+    border-top: 1px solid var(--border);
   }
-  .social-links {
+  .footer-top {
     display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-bottom: 20px;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 40px;
+    border-bottom: 1px solid var(--border);
     flex-wrap: wrap;
+    gap: 30px;
   }
+  .footer-logo { display: flex; align-items: center; }
+  .footer-logo img {
+    height: 110px; width: auto;
+  }
+  [data-theme="dark"] .footer-logo img { mix-blend-mode: screen; }
+  [data-theme="light"] .footer-logo img { filter: brightness(0.95); }
+  .social-links { display: flex; gap: 12px; }
   .social-links a {
     width: 45px; height: 45px;
-    background: var(--glass);
-    border: 1px solid var(--glass-border);
+    border: 1px solid var(--border);
     border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--light);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--text-primary);
     text-decoration: none;
-    transition: all 0.3s;
+    transition: all 0.4s;
   }
   .social-links a:hover {
-    background: var(--gradient-1);
-    transform: translateY(-5px) rotate(360deg);
-    border-color: transparent;
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--bg-primary);
+    transform: translateY(-5px);
   }
-  footer p { color: #94a3b8; font-size: 0.9rem; }
-
-  /* Animations */
-  @keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(40px); }
-    to { opacity: 1; transform: translateY(0); }
+  .footer-bottom {
+    padding-top: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    font-size: 13px;
+    color: var(--text-muted);
+    font-weight: 500;
   }
-  .reveal { opacity: 0; transform: translateY(50px); transition: all 0.8s ease; }
-  .reveal.active { opacity: 1; transform: translateY(0); }
 
-  /* ============ RESPONSIVE DESIGN ============ */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 1s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  .reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
 
-  /* Tablet */
-  @media (max-width: 1100px) {
-    .services-grid, .projects-grid {
+ @media (max-width: 968px) {
+    .nav-links {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 80%;
+      max-width: 400px;
+      height: 100vh;
+      background: var(--bg-primary);
+      flex-direction: column;
+      justify-content: flex-start;
+      gap: 22px !important; /* زيادة التباعد العمودي بين عناصر القائمة بشكل مريح جداً */
+      padding: 110px 30px 40px;
+      transition: all var(--transition);
+      box-shadow: var(--shadow-hover);
+      z-index: 999;
+      overflow-y: auto;
+    }
+    .nav-links.active {
+      right: 0;
+    }
+    [dir="ltr"] .nav-links {
+      right: auto;
+      left: -100%;
+    }
+    [dir="ltr"] .nav-links.active {
+      left: 0;
+    }
+    .nav-links a {
+      width: 100%;
+      text-align: center;
+      padding: 14px; /* زيادة مساحة الضغط على الرابط */
+      margin: 0 !important;
+      border-radius: 8px;
+      font-size: 15px; /* تكبير خط الروابط قليلاً لتناسب شاشات الموبايل */
+    }
+    .menu-toggle {
+      display: block;
+      position: relative;
+      z-index: 1010 !important; /* يضمن ظهور زر الـ X أو القائمة فوق الخلفية دائماً */
+    }
+    .hero {
+      grid-template-columns: 1fr;
+      padding-top: 120px;
+      gap: 40px;
+    }
+    .hero-visual {
+      height: 450px;
+      order: -1;
+    }
+    .about {
+      grid-template-columns: 1fr;
+      gap: 50px;
+    }
+    .about-visual {
+      height: 450px;
+    }
+    .stats-bar {
       grid-template-columns: repeat(2, 1fr);
     }
-    nav { gap: 20px; padding: 10px 25px; }
-    nav a { font-size: 13px; }
-    .logo { font-size: 18px; }
-  }
-
-  @media (max-width: 968px) {
-    body { cursor: auto; }
-    .cursor, .cursor-follower { display: none; }
-    .btn, .whatsapp-btn { cursor: pointer; }
-
-    .hero {
-      flex-direction: column;
-      text-align: center;
-      padding: 140px 6% 60px;
+    .services-grid {
+      grid-template-columns: 1fr;
     }
-    .hero-content { max-width: 100%; }
-    .hero-buttons { justify-content: center; }
-    .hero-3d {
-      height: 500px;
-      margin-top: 40px;
+    .service-card {
+      border-left: none !important;
+    }
+    .skills-container {
+      grid-template-columns: 1fr;
+    }
+    .projects-grid {
+      grid-template-columns: 1fr;
+    }
+    .testimonials-container {
+      grid-template-columns: 1fr;
+    }
+    .whatsapp-features {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    section {
+      padding: 80px 5%;
+    }
+    .marquee-item {
+      font-size: 1.3rem;
+    }
+    .about-features {
+      grid-template-columns: 1fr;
+    }
+    
+    /* تكبير حجم اللوجو في نسخة الهاتف ليكون واضحاً ومميزاً */
+    .nav-logo img {
+      height: 60px !important;
+    }
+    nav.scrolled .nav-logo img {
+      height: 60px !important;
+    }
+
+    /* تنسيق أزرار التحكم (اللغة والمود) أسفل القائمة في الموبايل */
+    .controls-bar,
+    [dir="ltr"] .controls-bar {
+      position: relative !important;
+      top: auto !important;
+      left: auto !important;
+      right: auto !important;
+      transform: none !important;
+      display: flex !important;
+      justify-content: center;
+      gap: 20px;
+      margin: 35px 0 0 0 !important; /* إبعاد الأزرار بمسافة كافية عن آخر رابط */
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
       width: 100%;
     }
-    .name-scene { width: 340px; height: 340px; }
-    .ring-1 { width: 320px; height: 320px; margin: -160px 0 0 -160px; }
-    .ring-2 { width: 270px; height: 270px; margin: -135px 0 0 -135px; }
-    .ring-3 { width: 220px; height: 220px; margin: -110px 0 0 -110px; }
-    .name-card { width: 260px; }
-    .name-main { font-size: 34px; }
-    .floating-icon { width: 45px; height: 45px; font-size: 18px; }
-
-    .about-container { grid-template-columns: 1fr; gap: 40px; }
-    .about-image-wrapper { max-width: 380px; }
-
-    .services-grid, .projects-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    .stats-bar { grid-template-columns: repeat(2, 1fr); gap: 15px; }
-
-    .contact-container { padding: 35px 25px; }
-
-    nav { gap: 15px; padding: 10px 18px; }
-    nav a { font-size: 12px; }
-    .logo { font-size: 16px; }
   }
-
-  @media (max-width: 768px) {
-    section { padding: 70px 5%; }
-    .stats-bar { padding: 30px 5%; }
-
-    .services-grid, .projects-grid {
-      grid-template-columns: 1fr;
-      gap: 20px;
-    }
-
-    nav {
-      top: 10px;
-      padding: 10px 15px;
-      gap: 10px;
-      border-radius: 40px;
-    }
-    nav a { font-size: 11px; }
-    .logo { font-size: 15px; }
-
-    .hero { padding: 130px 5% 40px; }
-    .hero-3d { height: 420px; }
-    .name-scene { width: 300px; height: 300px; }
-    .ring-1 { width: 280px; height: 280px; margin: -140px 0 0 -140px; }
-    .ring-2 { width: 240px; height: 240px; margin: -120px 0 0 -120px; }
-    .ring-3 { width: 200px; height: 200px; margin: -100px 0 0 -100px; }
-    .name-card { width: 230px; }
-    .name-main { font-size: 28px; }
-    .name-title { font-size: 12px; }
-    .name-role { font-size: 12px; }
-    .floating-icon { display: none; }
-
-    .about-features { grid-template-columns: 1fr; }
-    .about-image-wrapper { max-width: 320px; }
-    .floating-badge { padding: 10px 15px; font-size: 12px; }
-    .floating-badge .badge-text strong { font-size: 13px; }
-
-    .contact-features { grid-template-columns: repeat(2, 1fr); gap: 15px; }
-    .contact-feature { padding: 12px 8px; }
-    .contact-feature i { font-size: 24px; }
-
-    .whatsapp-btn { padding: 15px 30px; font-size: 16px; }
-  }
-
   @media (max-width: 480px) {
     .stats-bar { grid-template-columns: 1fr; }
-    nav {
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 8px;
-      padding: 8px 12px;
-    }
-    nav a { font-size: 10px; }
-    .logo { font-size: 14px; width: 100%; text-align: center; margin-bottom: 5px; }
-
-    .hero-3d { height: 380px; }
-    .name-scene { width: 270px; height: 270px; }
-    .ring-1 { width: 260px; height: 260px; margin: -130px 0 0 -130px; }
-    .ring-2 { width: 220px; height: 220px; margin: -110px 0 0 -110px; }
-    .ring-3 { width: 180px; height: 180px; margin: -90px 0 0 -90px; }
-    .name-card { width: 210px; }
-    .name-card-inner { padding: 25px 18px; }
-    .name-main { font-size: 24px; }
-
-    .btn { padding: 12px 22px; font-size: 13px; }
-    .service-card { padding: 28px 22px; }
-    .service-icon { width: 55px; height: 55px; font-size: 24px; }
-    .service-card .service-number { font-size: 2.5rem; }
-
-    .stat-number { font-size: 2.3rem; }
-    .stat-label { font-size: 0.85rem; }
-
-    .whatsapp-icon-big { width: 85px; height: 85px; font-size: 42px; }
-    .whatsapp-btn { padding: 14px 25px; font-size: 15px; width: 100%; justify-content: center; }
-
-    .contact-features { grid-template-columns: 1fr; }
-
-    .social-links a { width: 40px; height: 40px; font-size: 14px; }
-    footer p { font-size: 0.8rem; }
-
-    .about-avatar { font-size: 130px; }
-  }
-
-  @media (max-width: 360px) {
-    .name-scene { width: 240px; height: 240px; }
-    .ring-1 { width: 230px; height: 230px; margin: -115px 0 0 -115px; }
-    .ring-2 { width: 200px; height: 200px; margin: -100px 0 0 -100px; }
-    .ring-3 { width: 170px; height: 170px; margin: -85px 0 0 -85px; }
-    .name-card { width: 190px; }
-    .name-main { font-size: 22px; }
+    .whatsapp-features { grid-template-columns: 1fr; }
   }
 </style>
 </head>
 <body>
 
-<!-- Custom Cursor -->
-<div class="cursor"></div>
-<div class="cursor-follower"></div>
 
-<!-- Animated Background -->
-<div class="bg-animation"></div>
-<div class="grid-pattern"></div>
 
 <!-- Navigation -->
 <nav id="navbar">
-  <span class="logo">م. أحمد أشرف</span>
-  <a href="#home">الرئيسية</a>
-  <a href="#about">عني</a>
-  <a href="#services">خدماتي</a>
-  <a href="#projects">أعمالي</a>
-  <a href="#contact">تواصل</a>
+  <div class="nav-container">
+    <a href="#home" class="nav-logo">
+      <img src="https://i.ibb.co/vthQKHt/APEX.png" alt="APEX" onerror="this.style.display='none'">
+    </a>
+    <ul class="nav-links">
+      <li><a href="#home" data-ar="الرئيسية" data-en="Home">الرئيسية</a></li>
+      <li><a href="#about" data-ar="عني" data-en="About">عني</a></li>
+      <li><a href="#services" data-ar="خدماتي" data-en="Services">خدماتي</a></li>
+      <li><a href="#projects" data-ar="أعمالي" data-en="Works">أعمالي</a></li>
+      <li><a href="#testimonials" data-ar="آراء العملاء" data-en="Testimonials">آراء العملاء</a></li>
+      <li><a href="#contact" data-ar="تواصل" data-en="Contact">تواصل</a></li>
+      <li class="controls-bar">
+        <button class="control-btn" id="themeToggle"><i class="fas fa-sun"></i></button>
+        <button class="control-btn" id="langToggle">EN</button>
+      </li>
+    </ul>
+   
+    <button class="menu-toggle"><i class="fas fa-bars"></i></button>
+  </div>
 </nav>
 
-<!-- Hero Section -->
+<!-- Floating WhatsApp Button -->
+<a href="https://wa.me/201004498440?text=مرحباً%20أحمد،%20أرغب%20في%20الاستفسار%20عن%20خدماتك" class="whatsapp-float" aria-label="WhatsApp">
+  <i class="fab fa-whatsapp"></i>
+  <span class="tooltip" data-ar="تواصل عبر واتساب" data-en="Chat on WhatsApp">تواصل عبر واتساب</span>
+</a>
+
+<!-- Hero -->
 <section class="hero" id="home">
   <div class="hero-content">
     <div class="hero-badge">
       <span class="dot"></span>
-      <span>متاح للاستشارات والمشاريع الجديدة</span>
+      <span data-ar="متاح للاستشارات والمشاريع الجديدة" data-en="Available for new projects">متاح للاستشارات والمشاريع الجديدة</span>
     </div>
-    <h1>مرحباً، أنا <span class="gradient-text">المهندس أحمد أشرف</span></h1>
-    <p class="subtitle">🚀 استشاري تسويق رقمي | محاضر | خبير إدارة الصفحات</p>
-    <p class="description">
-      أحوّل الأفكار إلى استراتيجيات تسويقية ناجحة. أجمع بين الخبرة العملية والشغف بالتعليم،
-      أساعد الشركات والأفراد على بناء حضور رقمي قوي وتحقيق أهدافهم التسويقية بأسلوب احترافي ومبتكر.
+    <h1>
+      <span data-ar="مرحباً، أنا" data-en="Hi, I'm">مرحباً، أنا</span><br>
+      <span class="accent" data-ar="م / أحمد أشرف " data-en="Eng. Ahmed Ashraf">م / أحمد </span>
+    </h1>
+    <div class="subtitle">
+      <span data-ar="استشاري تسويق رقمي | محاضر | خبير إدارة الصفحات" data-en="Digital Marketing Consultant | Lecturer | Social Media Expert">استشاري تسويق رقمي | محاضر | خبير إدارة الصفحات</span>
+    </div>
+    <p class="description" data-ar="أحوّل الأفكار إلى استراتيجيات تسويقية ناجحة. أجمع بين الخبرة العملية والشغف بالتعليم، أساعد الشركات والأفراد على بناء حضور رقمي قوي وتحقيق أهدافهم التسويقية بأسلوب احترافي ومبتكر." data-en="I transform ideas into successful marketing strategies. Combining practical experience with a passion for teaching, I help businesses and individuals build a strong digital presence and achieve their marketing goals professionally and innovatively.">
+      أحوّل الأفكار إلى استراتيجيات تسويقية ناجحة. أجمع بين الخبرة العملية والشغف بالتعليم، أساعد الشركات والأفراد على بناء حضور رقمي قوي وتحقيق أهدافهم التسويقية بأسلوب احترافي ومبتكر.
     </p>
     <div class="hero-buttons">
-      <a href="https://wa.me/201004498440?text=مرحباً%20المهندس%20أحمد،%20أرغب%20في%20الاستفسار%20عن%20خدماتك" target="_blank" class="btn btn-whatsapp">
+      <a href="https://wa.me/201004498440" class="btn-primary">
         <i class="fab fa-whatsapp"></i>
-        تواصل عبر واتساب
+        <span data-ar="تواصل عبر واتساب" data-en="Chat on WhatsApp">تواصل عبر واتساب</span>
       </a>
-      <a href="#projects" class="btn btn-secondary">
-        <i class="fas fa-briefcase"></i>
-        استعرض أعمالي
+      <a href="#projects" class="btn-outline">
+        <span data-ar="استعرض أعمالي" data-en="View My Works">استعرض أعمالي</span>
+        <i class="fas fa-arrow-left"></i>
       </a>
     </div>
   </div>
 
-  <!-- 3D Name Scene -->
-  <div class="hero-3d">
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
-    <div class="orb orb-3"></div>
-
-    <div class="name-scene" id="nameScene">
-      <div class="ring ring-1"></div>
-      <div class="ring ring-2"></div>
-      <div class="ring ring-3"></div>
-
-      <div class="name-card">
-        <div class="name-card-inner">
-          <div class="name-title">Eng.</div>
-          <div class="name-main">أحمد أشرف</div>
-          <div class="name-divider"></div>
-          <div class="name-role">
-            <i class="fas fa-chart-line"></i>
-            استشاري تسويق رقمي
-          </div>
-        </div>
+  <div class="hero-visual">
+    <div class="hero-image-wrapper" id="heroWrapper">
+      <div class="hero-image-inner">
+        <img src="https://i.ibb.co/v4Cw1qvj/10ce302c-69f9-463f-80ff-b4694acd9682.jpg" alt="أحمد أشرف">
       </div>
-
-      <div class="floating-icon fi-1"><i class="fas fa-bullhorn"></i></div>
-      <div class="floating-icon fi-2"><i class="fas fa-graduation-cap"></i></div>
-      <div class="floating-icon fi-3"><i class="fas fa-chart-pie"></i></div>
-      <div class="floating-icon fi-4"><i class="fas fa-lightbulb"></i></div>
-      <div class="floating-icon fi-5"><i class="fas fa-rocket"></i></div>
+    </div>
+    <div class="floating-card card-1">
+      <div class="floating-icon"><i class="fas fa-award"></i></div>
+      <div class="floating-text">
+        <strong>+8</strong>
+        <span data-ar="سنوات خبرة" data-en="Years Experience">سنوات خبرة</span>
+      </div>
+    </div>
+    <div class="floating-card card-2">
+      <div class="floating-icon"><i class="fas fa-graduation-cap"></i></div>
+      <div class="floating-text">
+        <strong>+500</strong>
+        <span data-ar="طالب تم تخريجه" data-en="Graduated Students">طالب تم تخريجه</span>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- Stats -->
-<div class="stats-bar">
-  <div class="stat-card reveal">
-    <div class="stat-number" data-target="150">0</div>
-    <div class="stat-label">مشروع ناجح</div>
-  </div>
-  <div class="stat-card reveal">
-    <div class="stat-number" data-target="80">0</div>
-    <div class="stat-label">عميل سعيد</div>
-  </div>
-  <div class="stat-card reveal">
-    <div class="stat-number" data-target="500">0</div>
-    <div class="stat-label">طالب تم تخريجه</div>
-  </div>
-  <div class="stat-card reveal">
-    <div class="stat-number" data-target="8">0</div>
-    <div class="stat-label">سنوات خبرة</div>
+<div class="marquee">
+  <div class="marquee-track">
+    <div class="marquee-item"><span data-ar="التسويق الرقمي" data-en="Digital Marketing">التسويق الرقمي</span> <span class="dot"></span></div>
+    <div class="marquee-item"><span data-ar="الاستشارات الاستراتيجية" data-en="Strategic Consulting">الاستشارات الاستراتيجية</span> <span class="dot"></span></div>
+    <div class="marquee-item"><span data-ar="بناء العلامات التجارية" data-en="Brand Building">بناء العلامات التجارية</span> <span class="dot"></span></div>
+    <div class="marquee-item"><span data-ar="التدريب والمحاضرة" data-en="Training & Lecturing">التدريب والمحاضرة</span> <span class="dot"></span></div>
+    <div class="marquee-item"><span data-ar="إدارة الحملات" data-en="Campaign Management">إدارة الحملات</span> <span class="dot"></span></div>
+    <div class="marquee-item"><span data-ar="التسويق الرقمي" data-en="Digital Marketing">التسويق الرقمي</span> <span class="dot"></span></div>
+    <div class="marquee-item"><span data-ar="الاستشارات الاستراتيجية" data-en="Strategic Consulting">الاستشارات الاستراتيجية</span> <span class="dot"></span></div>
+    <div class="marquee-item"><span data-ar="بناء العلامات التجارية" data-en="Brand Building">بناء العلامات التجارية</span> <span class="dot"></span></div>
+    <div class="marquee-item"><span data-ar="التدريب والمحاضرة" data-en="Training & Lecturing">التدريب والمحاضرة</span> <span class="dot"></span></div>
+    <div class="marquee-item"><span data-ar="إدارة الحملات" data-en="Campaign Management">إدارة الحملات</span> <span class="dot"></span></div>
   </div>
 </div>
 
-<!-- About -->
-<section id="about">
-  <div class="section-header reveal">
-    <span class="section-tag">✨ تعرّف عليّ</span>
-    <h2 class="section-title">من أنا؟</h2>
-    <p class="section-subtitle">شغف بالتسويق، حبّ للتعليم، ورؤية واضحة للمستقبل الرقمي</p>
-  </div>
+<div class="stats-bar">
+  <div class="stat-card reveal"><span class="stat-number" data-target="150">0</span><span class="stat-label" data-ar="مشروع ناجح" data-en="Successful Projects">مشروع ناجح</span></div>
+  <div class="stat-card reveal"><span class="stat-number" data-target="80">0</span><span class="stat-label" data-ar="عميل سعيد" data-en="Happy Clients">عميل سعيد</span></div>
+  <div class="stat-card reveal"><span class="stat-number" data-target="500">0</span><span class="stat-label" data-ar="طالب تم تخريجه" data-en="Graduated Students">طالب تم تخريجه</span></div>
+  <div class="stat-card reveal"><span class="stat-number" data-target="8">0</span><span class="stat-label" data-ar="سنوات خبرة" data-en="Years Experience">سنوات خبرة</span></div>
+</div>
 
-  <div class="about-container">
-    <div class="about-image reveal">
-      <div class="about-image-wrapper">
-        <div class="about-image-bg"></div>
-        <div class="about-image-main">
-          <i class="fas fa-user-tie about-avatar"></i>
+<section id="about">
+  <div class="about">
+    <div class="about-visual reveal">
+      <div class="about-image-main">
+        <img src="https://i.ibb.co/v4Cw1qvj/10ce302c-69f9-463f-80ff-b4694acd9682.jpg" alt="أحمد أشرف">
+      </div>
+      <div class="about-image-accent">
+        <div>
+          <div class="label" data-ar="منذ عام" data-en="Since">منذ عام</div>
+          <div class="big-num">2017</div>
         </div>
-        <div class="floating-badge badge-1">
-          <i class="fas fa-award"></i>
-          <div class="badge-text">
-            <strong>+8 سنوات</strong>
-            <span>خبرة عملية</span>
-          </div>
-        </div>
-        <div class="floating-badge badge-2">
-          <i class="fas fa-chalkboard-teacher"></i>
-          <div class="badge-text">
-            <strong>محاضر معتمد</strong>
-            <span>تسويق رقمي</span>
-          </div>
+        <div class="divider"></div>
+        <div>
+          <div class="label" data-ar="أصنع الفارق في" data-en="Making a difference in">أصنع الفارق في</div>
+          <div style="font-size: 1.3rem; font-weight: 900; color: var(--accent);" data-ar="التسويق الرقمي" data-en="Digital Marketing">التسويق الرقمي</div>
         </div>
       </div>
     </div>
-
     <div class="about-content reveal">
-      <h2>المهندس أحمد أشرف | <span style="background: var(--gradient-1); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">خبير تسويق رقمي</span></h2>
-      <p>
-        أنا محاضر واستشاري تسويق رقمي بخبرة تمتد لأكثر من 8 سنوات في مجال التسويق الإلكتروني وإدارة الصفحات على منصات التواصل الاجتماعي. أؤمن بأن التسويق الناجح يبدأ بفهم عميق للجمهور وبناء استراتيجيات ذكية قائمة على البيانات.
-      </p>
-      <p>
-        كمحاضر، أسعى لنقل خبرتي العملية للجيل القادم من المسوقين، ومساعدتهم على بناء مسارات مهنية ناجحة في عالم التسويق الرقمي المتطور باستمرار.
-      </p>
+      <div class="section-label"><span class="num">01</span><span class="line"></span><span data-ar="تعرّف عليّ" data-en="About Me">تعرّف عليّ</span></div>
+      <h2 class="section-title"><span data-ar="أحمد أشرف" data-en="Ahmed Ashraf">أحمد أشرف</span><br><span class="accent" data-ar="خبير تسويق رقمي" data-en="Digital Marketing Expert">خبير تسويق رقمي</span></h2>
+      <p data-ar="أنا محاضر واستشاري تسويق رقمي بخبرة تمتد لأكثر من 8 سنوات في مجال التسويق الإلكتروني وإدارة الصفحات على منصات التواصل الاجتماعي. أؤمن بأن التسويق الناجح يبدأ بفهم عميق للجمهور وبناء استراتيجيات ذكية قائمة على البيانات." data-en="I am a lecturer and digital marketing consultant with over 8 years of experience in e-marketing and social media page management.">أنا محاضر واستشاري تسويق رقمي بخبرة تمتد لأكثر من 8 سنوات في مجال التسويق الإلكتروني وإدارة الصفحات على منصات التواصل الاجتماعي.</p>
+      <p data-ar="كمحاضر، أسعى لنقل خبرتي العملية للجيل القادم من المسوقين، ومساعدتهم على بناء مسارات مهنية ناجحة في عالم التسويق الرقمي المتطور باستمرار." data-en="As a lecturer, I strive to pass my practical experience to the next generation of marketers.">كمحاضر، أسعى لنقل خبرتي العملية للجيل القادم من المسوقين.</p>
       <div class="about-features">
-        <div class="feature-item">
-          <i class="fas fa-check-circle"></i>
-          <span>استراتيجيات تسويقية متكاملة</span>
-        </div>
-        <div class="feature-item">
-          <i class="fas fa-check-circle"></i>
-          <span>إدارة حملات إعلانية احترافية</span>
-        </div>
-        <div class="feature-item">
-          <i class="fas fa-check-circle"></i>
-          <span>تحليل البيانات واتخاذ القرارات</span>
-        </div>
-        <div class="feature-item">
-          <i class="fas fa-check-circle"></i>
-          <span>بناء العلامة التجارية</span>
-        </div>
+        <div class="feature-item"><i class="fas fa-check-circle"></i><span data-ar="استراتيجيات تسويقية متكاملة" data-en="Integrated Marketing Strategies">استراتيجيات تسويقية متكاملة</span></div>
+        <div class="feature-item"><i class="fas fa-check-circle"></i><span data-ar="إدارة حملات إعلانية احترافية" data-en="Professional Campaign Management">إدارة حملات إعلانية احترافية</span></div>
+        <div class="feature-item"><i class="fas fa-check-circle"></i><span data-ar="تحليل البيانات واتخاذ القرارات" data-en="Data Analysis & Decision Making">تحليل البيانات واتخاذ القرارات</span></div>
+        <div class="feature-item"><i class="fas fa-check-circle"></i><span data-ar="بناء العلامة التجارية" data-en="Brand Building">بناء العلامة التجارية</span></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Services -->
-<section id="services">
-  <div class="section-header reveal">
-    <span class="section-tag">💼 ما أقدمه</span>
-    <h2 class="section-title">خدماتي المتخصصة</h2>
-    <p class="section-subtitle">حلول تسويقية شاملة مصممة خصيصاً لتلبية احتياجات عملك</p>
-  </div>
-
+<section class="services" id="services">
+  <div class="section-label"><span class="num">02</span><span class="line"></span><span data-ar="ما أقدمه" data-en="What I Offer">ما أقدمه</span></div>
+  <h2 class="section-title"><span data-ar="خدماتي" data-en="My">خدماتي</span> <span class="accent" data-ar="المتخصصة" data-en="Specialized Services">المتخصصة</span></h2>
+  <p class="section-subtitle" data-ar="حلول تسويقية شاملة مصممة خصيصاً لتلبية احتياجات عملك" data-en="Comprehensive marketing solutions tailored to your needs">حلول تسويقية شاملة مصممة خصيصاً لتلبية احتياجات عملك</p>
   <div class="services-grid">
     <div class="service-card reveal">
-      <span class="service-number">01</span>
-      <div class="service-icon"><i class="fas fa-bullseye"></i></div>
-      <h3>استشارات تسويقية</h3>
-      <p>تقديم استشارات تسويقية متخصصة تساعدك على وضع خطة تسويقية واضحة وفعّالة تحقق أهدافك التجارية بأعلى عائد استثمار.</p>
+      <div class="service-header"><span class="service-num">— 01</span><div class="service-icon"><i class="fas fa-bullseye"></i></div></div>
+      <h3 data-ar="استشارات تسويقية" data-en="Marketing Consulting">استشارات تسويقية</h3>
+      <p data-ar="تقديم استشارات تسويقية متخصصة تساعدك على وضع خطة تسويقية واضحة وفعّالة." data-en="Specialized marketing consultations for clear and effective plans.">تقديم استشارات تسويقية متخصصة تساعدك على وضع خطة تسويقية واضحة وفعّالة.</p>
+      <div class="service-tags"><span class="service-tag">Strategy</span><span class="service-tag">Planning</span></div>
     </div>
-
     <div class="service-card reveal">
-      <span class="service-number">02</span>
-      <div class="service-icon"><i class="fas fa-ad"></i></div>
-      <h3>إدارة الحملات الإعلانية</h3>
-      <p>إدارة حملات إعلانية احترافية على منصات فيسبوك، إنستجرام، جوجل وتيك توك باستهداف دقيق وتحقيق أفضل النتائج.</p>
+      <div class="service-header"><span class="service-num">— 02</span><div class="service-icon"><i class="fas fa-ad"></i></div></div>
+      <h3 data-ar="إدارة الحملات الإعلانية" data-en="Ads Campaign Management">إدارة الحملات الإعلانية</h3>
+      <p data-ar="إدارة حملات إعلانية احترافية على فيسبوك، إنستجرام، جوجل وتيك توك." data-en="Professional ad campaigns on Facebook, Instagram, Google, and TikTok.">إدارة حملات إعلانية احترافية على فيسبوك، إنستجرام، جوجل وتيك توك.</p>
+      <div class="service-tags"><span class="service-tag">Meta Ads</span><span class="service-tag">Google Ads</span><span class="service-tag">TikTok</span></div>
     </div>
-
     <div class="service-card reveal">
-      <span class="service-number">03</span>
-      <div class="service-icon"><i class="fas fa-mobile-alt"></i></div>
-      <h3>إدارة صفحات التواصل</h3>
-      <p>إدارة احترافية لصفحاتك على منصات التواصل الاجتماعي مع إنشاء محتوى جذاب وبناء مجتمع تفاعلي حول علامتك التجارية.</p>
+      <div class="service-header"><span class="service-num">— 03</span><div class="service-icon"><i class="fas fa-mobile-alt"></i></div></div>
+      <h3 data-ar="إدارة صفحات التواصل" data-en="Social Media Management">إدارة صفحات التواصل</h3>
+      <p data-ar="إدارة احترافية لصفحاتك مع إنشاء محتوى جذاب وبناء مجتمع تفاعلي." data-en="Professional social media management with engaging content.">إدارة احترافية لصفحاتك مع إنشاء محتوى جذاب وبناء مجتمع تفاعلي.</p>
+      <div class="service-tags"><span class="service-tag">Content</span><span class="service-tag">Community</span></div>
     </div>
-
     <div class="service-card reveal">
-      <span class="service-number">04</span>
-      <div class="service-icon"><i class="fas fa-graduation-cap"></i></div>
-      <h3>التدريب والمحاضرة</h3>
-      <p>دورات تدريبية ومحاضرات متخصصة في التسويق الرقمي للطلاب والمحترفين، مع التركيز على التطبيق العملي وأحدث الأساليب.</p>
+      <div class="service-header"><span class="service-num">— 04</span><div class="service-icon"><i class="fas fa-graduation-cap"></i></div></div>
+      <h3 data-ar="التدريب والمحاضرة" data-en="Training & Lecturing">التدريب والمحاضرة</h3>
+      <p data-ar="دورات تدريبية ومحاضرات متخصصة في التسويق الرقمي." data-en="Specialized training courses and lectures in digital marketing.">دورات تدريبية ومحاضرات متخصصة في التسويق الرقمي.</p>
+      <div class="service-tags"><span class="service-tag">Teaching</span><span class="service-tag">Workshops</span></div>
     </div>
-
     <div class="service-card reveal">
-      <span class="service-number">05</span>
-      <div class="service-icon"><i class="fas fa-search-dollar"></i></div>
-      <h3>تحسين محركات البحث SEO</h3>
-      <p>تحسين ظهور موقعك في نتائج البحث الأولى لجوجل من خلال استراتيجيات SEO متقدمة تجلب لك زيارات مستهدفة ومستمرة.</p>
+      <div class="service-header"><span class="service-num">— 05</span><div class="service-icon"><i class="fas fa-search-dollar"></i></div></div>
+      <h3 data-ar="تحسين محركات البحث SEO" data-en="SEO Optimization">تحسين محركات البحث SEO</h3>
+      <p data-ar="تحسين ظهور موقعك في نتائج البحث الأولى لجوجل." data-en="Improving your website's ranking in Google search results.">تحسين ظهور موقعك في نتائج البحث الأولى لجوجل.</p>
+      <div class="service-tags"><span class="service-tag">SEO</span><span class="service-tag">Analytics</span></div>
     </div>
-
     <div class="service-card reveal">
-      <span class="service-number">06</span>
-      <div class="service-icon"><i class="fas fa-chart-pie"></i></div>
-      <h3>تحليل البيانات والتقارير</h3>
-      <p>تحليل شامل لأداء حملاتك التسويقية مع تقارير مفصلة ورؤى قابلة للتنفيذ لتحسين استراتيجياتك باستمرار.</p>
+      <div class="service-header"><span class="service-num">— 06</span><div class="service-icon"><i class="fas fa-chart-pie"></i></div></div>
+      <h3 data-ar="تحليل البيانات والتقارير" data-en="Data Analysis & Reports">تحليل البيانات والتقارير</h3>
+      <p data-ar="تحليل شامل لأداء حملاتك مع تقارير مفصلة ورؤى قابلة للتنفيذ." data-en="Comprehensive analysis with detailed reports and actionable insights.">تحليل شامل لأداء حملاتك مع تقارير مفصلة ورؤى قابلة للتنفيذ.</p>
+      <div class="service-tags"><span class="service-tag">Reports</span><span class="service-tag">Insights</span></div>
+    </div>
+  </div>
+  <div style="margin-top: 100px;">
+    <div class="section-label"><span class="num">⚡</span><span class="line"></span><span data-ar="مهاراتي" data-en="My Skills">مهاراتي</span></div>
+    <h2 class="section-title"><span data-ar="خبرات" data-en="Expertise">خبرات</span> <span class="accent" data-ar="ومهارات" data-en="& Skills">ومهارات</span> <span data-ar="متخصصة" data-en="Specialized">متخصصة</span></h2>
+    <div class="skills-container">
+      <div class="skill-card reveal"><div class="skill-header"><div class="skill-name"><i class="fab fa-facebook"></i><span data-ar="إعلانات فيسبوك وإنستجرام" data-en="Facebook & Instagram Ads">إعلانات فيسبوك وإنستجرام</span></div><span class="skill-percent">95%</span></div><div class="skill-bar"><div class="skill-progress" data-width="95"></div></div></div>
+      <div class="skill-card reveal"><div class="skill-header"><div class="skill-name"><i class="fab fa-google"></i><span data-ar="إعلانات جوجل" data-en="Google Ads">إعلانات جوجل</span></div><span class="skill-percent">90%</span></div><div class="skill-bar"><div class="skill-progress" data-width="90"></div></div></div>
+      <div class="skill-card reveal"><div class="skill-header"><div class="skill-name"><i class="fas fa-search"></i><span data-ar="تحسين SEO" data-en="SEO">تحسين SEO</span></div><span class="skill-percent">88%</span></div><div class="skill-bar"><div class="skill-progress" data-width="88"></div></div></div>
+      <div class="skill-card reveal"><div class="skill-header"><div class="skill-name"><i class="fas fa-pen-fancy"></i><span data-ar="صناعة المحتوى" data-en="Content Creation">صناعة المحتوى</span></div><span class="skill-percent">92%</span></div><div class="skill-bar"><div class="skill-progress" data-width="92"></div></div></div>
+      <div class="skill-card reveal"><div class="skill-header"><div class="skill-name"><i class="fas fa-chart-bar"></i><span data-ar="تحليل البيانات" data-en="Data Analysis">تحليل البيانات</span></div><span class="skill-percent">85%</span></div><div class="skill-bar"><div class="skill-progress" data-width="85"></div></div></div>
+      <div class="skill-card reveal"><div class="skill-header"><div class="skill-name"><i class="fas fa-bullhorn"></i><span data-ar="بناء العلامة التجارية" data-en="Brand Building">بناء العلامة التجارية</span></div><span class="skill-percent">93%</span></div><div class="skill-bar"><div class="skill-progress" data-width="93"></div></div></div>
+      <div class="skill-card reveal"><div class="skill-header"><div class="skill-name"><i class="fab fa-tiktok"></i><span data-ar="تسويق تيك توك" data-en="TikTok Marketing">تسويق تيك توك</span></div><span class="skill-percent">87%</span></div><div class="skill-bar"><div class="skill-progress" data-width="87"></div></div></div>
+      <div class="skill-card reveal"><div class="skill-header"><div class="skill-name"><i class="fas fa-chalkboard-teacher"></i><span data-ar="التدريب والإلقاء" data-en="Training & Speaking">التدريب والإلقاء</span></div><span class="skill-percent">96%</span></div><div class="skill-bar"><div class="skill-progress" data-width="96"></div></div></div>
     </div>
   </div>
 </section>
 
-<!-- Skills -->
-<section>
-  <div class="section-header reveal">
-    <span class="section-tag">⚡ مهاراتي</span>
-    <h2 class="section-title">خبرات ومهارات متخصصة</h2>
-    <p class="section-subtitle">مجموعة من المهارات التي اكتسبتها عبر سنوات من العمل والتعلم المستمر</p>
-  </div>
-
-  <div class="skills-container">
-    <div class="skill-card reveal">
-      <div class="skill-header">
-        <div class="skill-name"><i class="fab fa-facebook"></i> إعلانات فيسبوك وإنستجرام</div>
-        <span class="skill-percent">95%</span>
-      </div>
-      <div class="skill-bar"><div class="skill-progress" data-width="95"></div></div>
-    </div>
-    <div class="skill-card reveal">
-      <div class="skill-header">
-        <div class="skill-name"><i class="fab fa-google"></i> إعلانات جوجل</div>
-        <span class="skill-percent">90%</span>
-      </div>
-      <div class="skill-bar"><div class="skill-progress" data-width="90"></div></div>
-    </div>
-    <div class="skill-card reveal">
-      <div class="skill-header">
-        <div class="skill-name"><i class="fas fa-search"></i> تحسين SEO</div>
-        <span class="skill-percent">88%</span>
-      </div>
-      <div class="skill-bar"><div class="skill-progress" data-width="88"></div></div>
-    </div>
-    <div class="skill-card reveal">
-      <div class="skill-header">
-        <div class="skill-name"><i class="fas fa-pen-fancy"></i> صناعة المحتوى</div>
-        <span class="skill-percent">92%</span>
-      </div>
-      <div class="skill-bar"><div class="skill-progress" data-width="92"></div></div>
-    </div>
-    <div class="skill-card reveal">
-      <div class="skill-header">
-        <div class="skill-name"><i class="fas fa-chart-bar"></i> تحليل البيانات</div>
-        <span class="skill-percent">85%</span>
-      </div>
-      <div class="skill-bar"><div class="skill-progress" data-width="85"></div></div>
-    </div>
-    <div class="skill-card reveal">
-      <div class="skill-header">
-        <div class="skill-name"><i class="fas fa-bullhorn"></i> بناء العلامة التجارية</div>
-        <span class="skill-percent">93%</span>
-      </div>
-      <div class="skill-bar"><div class="skill-progress" data-width="93"></div></div>
-    </div>
-    <div class="skill-card reveal">
-      <div class="skill-header">
-        <div class="skill-name"><i class="fab fa-tiktok"></i> تسويق تيك توك</div>
-        <span class="skill-percent">87%</span>
-      </div>
-      <div class="skill-bar"><div class="skill-progress" data-width="87"></div></div>
-    </div>
-    <div class="skill-card reveal">
-      <div class="skill-header">
-        <div class="skill-name"><i class="fas fa-chalkboard-teacher"></i> التدريب والإلقاء</div>
-        <span class="skill-percent">96%</span>
-      </div>
-      <div class="skill-bar"><div class="skill-progress" data-width="96"></div></div>
-    </div>
-  </div>
-</section>
-
-<!-- Projects -->
-<section id="projects">
-  <div class="section-header reveal">
-    <span class="section-tag">🎯 أعمالي</span>
-    <h2 class="section-title">نماذج من مشاريعي</h2>
-    <p class="section-subtitle">مشاريع حقيقية حققت نتائج ملموسة لعملائي</p>
-  </div>
-
+<section class="projects" id="projects">
+  <div class="section-label"><span class="num">03</span><span class="line"></span><span data-ar="أعمالي" data-en="My Works">أعمالي</span></div>
+  <h2 class="section-title"><span data-ar="نماذج من" data-en="Samples from">نماذج من</span> <span class="accent" data-ar="مشاريعي" data-en="My Projects">مشاريعي</span></h2>
+  <p class="section-subtitle" data-ar="مشاريع حقيقية حققت نتائج ملموسة لعملائي" data-en="Real projects with tangible results">مشاريع حقيقية حققت نتائج ملموسة لعملائي</p>
   <div class="projects-grid">
-    <div class="project-card reveal">
-      <div class="project-image" style="background: linear-gradient(135deg, #818cf8, #a78bfa);">
-        <i class="fas fa-store"></i>
-      </div>
-      <div class="project-content">
-        <span class="project-category">تسويق إلكتروني</span>
-        <h3>حملة متجر إلكتروني</h3>
-        <p>إدارة حملة تسويقية متكاملة لمتجر إلكتروني حققت زيادة 300% في المبيعات خلال 3 أشهر.</p>
-        <div class="project-tags">
-          <span class="project-tag">Facebook Ads</span>
-          <span class="project-tag">Instagram</span>
-          <span class="project-tag">E-commerce</span>
-        </div>
-      </div>
-    </div>
+    <div class="project-card reveal"><div class="project-image"><i class="fas fa-store"></i></div><div class="project-content"><span class="project-category" data-ar="تسويق إلكتروني" data-en="E-Marketing">تسويق إلكتروني</span><h3 data-ar="حملة متجر إلكتروني" data-en="E-Store Campaign">حملة متجر إلكتروني</h3><p data-ar="زيادة 300% في المبيعات خلال 3 أشهر." data-en="300% sales increase in 3 months.">زيادة 300% في المبيعات خلال 3 أشهر.</p><div class="project-tags"><span class="project-tag">Facebook Ads</span><span class="project-tag">Instagram</span></div></div></div>
+    <div class="project-card reveal"><div class="project-image"><i class="fas fa-utensils"></i></div><div class="project-content"><span class="project-category" data-ar="إدارة صفحات" data-en="Page Management">إدارة صفحات</span><h3 data-ar="سلسلة مطاعم" data-en="Restaurant Chain">سلسلة مطاعم</h3><p data-ar="زيادة المتابعين بنسبة 500%." data-en="500% follower increase.">زيادة المتابعين بنسبة 500%.</p><div class="project-tags"><span class="project-tag">Content</span><span class="project-tag">Branding</span></div></div></div>
+    <div class="project-card reveal"><div class="project-image"><i class="fas fa-graduation-cap"></i></div><div class="project-content"><span class="project-category" data-ar="تدريب" data-en="Training">تدريب</span><h3 data-ar="دورة التسويق الرقمي" data-en="Digital Marketing Course">دورة التسويق الرقمي</h3><p data-ar="تدريب أكثر من 500 طالب." data-en="Training 500+ students.">تدريب أكثر من 500 طالب.</p><div class="project-tags"><span class="project-tag">Teaching</span><span class="project-tag">Workshops</span></div></div></div>
+    <div class="project-card reveal"><div class="project-image"><i class="fas fa-building"></i></div><div class="project-content"><span class="project-category" data-ar="استشارة" data-en="Consulting">استشارة</span><h3 data-ar="شركة عقارات" data-en="Real Estate Company">شركة عقارات</h3><p data-ar="مضاعفة العملاء المحتملين." data-en="Doubled potential clients.">مضاعفة العملاء المحتملين.</p><div class="project-tags"><span class="project-tag">Strategy</span><span class="project-tag">Google Ads</span></div></div></div>
+    <div class="project-card reveal"><div class="project-image"><i class="fas fa-tshirt"></i></div><div class="project-content"><span class="project-category" data-ar="علامة تجارية" data-en="Brand">علامة تجارية</span><h3 data-ar="براند أزياء" data-en="Fashion Brand">براند أزياء</h3><p data-ar="إطلاق ناجح في السوق." data-en="Successful market launch.">إطلاق ناجح في السوق.</p><div class="project-tags"><span class="project-tag">Branding</span><span class="project-tag">TikTok</span></div></div></div>
+    <div class="project-card reveal"><div class="project-image"><i class="fas fa-laptop-code"></i></div><div class="project-content"><span class="project-category">SEO</span><h3 data-ar="موقع تقني" data-en="Tech Website">موقع تقني</h3><p data-ar="الوصول للمراكز الأولى في كلمات تنافسية." data-en="Top positions in competitive keywords.">الوصول للمراكز الأولى في كلمات تنافسية.</p><div class="project-tags"><span class="project-tag">SEO</span><span class="project-tag">Analytics</span></div></div></div>
+  </div>
+</section>
 
-    <div class="project-card reveal">
-      <div class="project-image" style="background: linear-gradient(135deg, #22d3ee, #60a5fa);">
-        <i class="fas fa-utensils"></i>
-      </div>
-      <div class="project-content">
-        <span class="project-category">إدارة صفحات</span>
-        <h3>سلسلة مطاعم</h3>
-        <p>بناء وإدارة حسابات التواصل الاجتماعي لسلسلة مطاعم، وزيادة المتابعين بنسبة 500%.</p>
-        <div class="project-tags">
-          <span class="project-tag">Content Strategy</span>
-          <span class="project-tag">Community</span>
-          <span class="project-tag">Branding</span>
-        </div>
-      </div>
+<section class="testimonials" id="testimonials">
+  <div class="section-label"><span class="num">04</span><span class="line"></span><span data-ar="آراء العملاء" data-en="Client Reviews">آراء العملاء</span></div>
+  <h2 class="section-title"><span data-ar="ماذا يقول عني" data-en="What">ماذا يقول عني</span> <span class="accent" data-ar="عملائي؟" data-en="Clients Say">عملائي؟</span></h2>
+  <div class="testimonials-container">
+    <div class="testimonial-card reveal">
+      <div class="testimonial-quote">"</div>
+      <div class="testimonial-stars">★★★★★</div>
+      <p class="testimonial-text" data-ar="محترف حقيقي، ساعدنا في بناء استراتيجية تسويقية قوية ضاعفت مبيعاتنا." data-en="A true professional who build a strong strategy that doubled our sales.">محترف حقيقي، ساعدنا في بناء استراتيجية تسويقية قوية ضاعفت مبيعاتنا.</p>
+      <div class="testimonial-author"><div class="author-avatar" data-ar="م.ع" data-en="M.A">م.ع</div><div class="author-info"><strong data-ar="محمد العلي" data-en="Mohamed Al-Ali">محمد العلي</strong><span data-ar="مدير شركة تقنية" data-en="Tech Company Director">مدير شركة تقنية</span></div></div>
     </div>
-
-    <div class="project-card reveal">
-      <div class="project-image" style="background: linear-gradient(135deg, #f472b6, #a78bfa);">
-        <i class="fas fa-graduation-cap"></i>
-      </div>
-      <div class="project-content">
-        <span class="project-category">تدريب</span>
-        <h3>دورة التسويق الرقمي</h3>
-        <p>تدريب أكثر من 500 طالب على أساسيات التسويق الرقمي وتطبيقاته العملية.</p>
-        <div class="project-tags">
-          <span class="project-tag">Teaching</span>
-          <span class="project-tag">Workshops</span>
-          <span class="project-tag">Mentoring</span>
-        </div>
-      </div>
+    <div class="testimonial-card reveal">
+      <div class="testimonial-quote">"</div>
+      <div class="testimonial-stars">★★★★★</div>
+      <p class="testimonial-text" data-ar="محاضر رائع ومتميز، أسلوبه في الشرح مبسط وعملي." data-en="An outstanding lecturer with a simplified and practical teaching style.">محاضر رائع ومتميز، أسلوبه في الشرح مبسط وعملي.</p>
+      <div class="testimonial-author"><div class="author-avatar" data-ar="س.أ" data-en="S.A">س.أ</div><div class="author-info"><strong data-ar="سارة الأحمد" data-en="Sarah Al-Ahmad">سارة الأحمد</strong><span data-ar="طالبة سابقة" data-en="Former Student">طالبة سابقة</span></div></div>
     </div>
-
-    <div class="project-card reveal">
-      <div class="project-image" style="background: linear-gradient(135deg, #34d399, #22d3ee);">
-        <i class="fas fa-building"></i>
-      </div>
-      <div class="project-content">
-        <span class="project-category">استشارة</span>
-        <h3>شركة عقارات</h3>
-        <p>استشارة تسويقية شاملة لشركة عقارات أدت إلى مضاعفة عدد العملاء المحتملين.</p>
-        <div class="project-tags">
-          <span class="project-tag">Strategy</span>
-          <span class="project-tag">Lead Gen</span>
-          <span class="project-tag">Google Ads</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="project-card reveal">
-      <div class="project-image" style="background: linear-gradient(135deg, #fbbf24, #f472b6);">
-        <i class="fas fa-tshirt"></i>
-      </div>
-      <div class="project-content">
-        <span class="project-category">علامة تجارية</span>
-        <h3>براند أزياء</h3>
-        <p>بناء هوية بصرية وتسويقية لبراند أزياء ناشئ وإطلاقه بنجاح في السوق.</p>
-        <div class="project-tags">
-          <span class="project-tag">Branding</span>
-          <span class="project-tag">Influencers</span>
-          <span class="project-tag">TikTok</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="project-card reveal">
-      <div class="project-image" style="background: linear-gradient(135deg, #a78bfa, #f472b6);">
-        <i class="fas fa-laptop-code"></i>
-      </div>
-      <div class="project-content">
-        <span class="project-category">SEO</span>
-        <h3>موقع تقني</h3>
-        <p>تحسين محركات البحث لموقع تقني، والوصول للمراكز الأولى في كلمات مفتاحية تنافسية.</p>
-        <div class="project-tags">
-          <span class="project-tag">SEO</span>
-          <span class="project-tag">Content</span>
-          <span class="project-tag">Analytics</span>
-        </div>
-      </div>
+    <div class="testimonial-card reveal">
+      <div class="testimonial-quote">"</div>
+      <div class="testimonial-stars">★★★★★</div>
+      <p class="testimonial-text" data-ar="النتائج كانت مذهلة. زيادة كبيرة في التفاعل والمبيعات." data-en="The results were amazing. Significant increase in engagement and sales.">النتائج كانت مذهلة. زيادة كبيرة في التفاعل والمبيعات.</p>
+      <div class="testimonial-author"><div class="author-avatar" data-ar="خ.م" data-en="K.M">خ.م</div><div class="author-info"><strong data-ar="خالد محمود" data-en="Khaled Mahmoud">خالد محمود</strong><span data-ar="صاحب متجر إلكتروني" data-en="E-Store Owner">صاحب متجر إلكتروني</span></div></div>
     </div>
   </div>
 </section>
 
-<!-- Testimonials -->
-<section>
-  <div class="section-header reveal">
-    <span class="section-tag">💬 آراء العملاء</span>
-    <h2 class="section-title">ماذا يقول عني عملائي؟</h2>
-    <p class="section-subtitle">ثقة العملاء هي أكبر شهادة على جودة العمل</p>
-  </div>
-
-  <div class="testimonials-grid">
-    <div class="testimonial-card reveal">
-      <i class="fas fa-quote-right quote-icon"></i>
-      <div class="stars">★★★★★</div>
-      <p class="testimonial-text">"المهندس أحمد محترف حقيقي، ساعدنا في بناء استراتيجية تسويقية قوية ضاعفت مبيعاتنا خلال أشهر قليلة. أنصح بالتعامل معه بشدة."</p>
-      <div class="testimonial-author">
-        <div class="author-avatar">م.ع</div>
-        <div class="author-info">
-          <strong>محمد العلي</strong>
-          <span>مدير شركة تقنية</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="testimonial-card reveal">
-      <i class="fas fa-quote-right quote-icon"></i>
-      <div class="stars">★★★★★</div>
-      <p class="testimonial-text">"محاضر رائع ومتميز، أسلوبه في الشرح مبسط وعملي في نفس الوقت. استفدت كثيراً من دوراته في التسويق الرقمي."</p>
-      <div class="testimonial-author">
-        <div class="author-avatar">س.أ</div>
-        <div class="author-info">
-          <strong>سارة الأحمد</strong>
-          <span>طالبة سابقة</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="testimonial-card reveal">
-      <i class="fas fa-quote-right quote-icon"></i>
-      <div class="stars">★★★★★</div>
-      <p class="testimonial-text">"تعاملت مع المهندس أحمد في إدارة صفحات التواصل الاجتماعي لمتجري، والنتائج كانت مذهلة. زيادة كبيرة في التفاعل والمبيعات."</p>
-      <div class="testimonial-author">
-        <div class="author-avatar">خ.م</div>
-        <div class="author-info">
-          <strong>خالد محمود</strong>
-          <span>صاحب متجر إلكتروني</span>
-        </div>
-      </div>
-    </div>
+<section class="whatsapp-section" id="contact">
+  <div class="section-label" style="justify-content: center; display: flex;"><span class="num">05</span><span class="line"></span><span data-ar="تواصل مباشر" data-en="Direct Contact">تواصل مباشر</span></div>
+  <h2 class="section-title" style="text-align: center;"><span data-ar="تواصل معي عبر" data-en="Contact Me via">تواصل معي عبر</span> <span style="color: #25D366;" data-ar="واتساب" data-en="WhatsApp">واتساب</span></h2>
+  <p class="section-subtitle" style="text-align: center;" data-ar="الطريقة الأسرع والأكثر مباشرة للوصول إليّ" data-en="The fastest way to reach me">الطريقة الأسرع والأكثر مباشرة للوصول إليّ</p>
+  <a href="https://wa.me/201004498440" class="whatsapp-btn"><i class="fab fa-whatsapp"></i><span data-ar="ابدأ المحادثة الآن" data-en="Start Chat Now">ابدأ المحادثة الآن</span></a>
+  <div class="whatsapp-features">
+    <div class="whatsapp-feature"><i class="fas fa-comments"></i><strong data-ar="دردشة مباشرة" data-en="Live Chat">دردشة مباشرة</strong><span data-ar="على واتساب" data-en="On WhatsApp">على واتساب</span></div>
+    <div class="whatsapp-feature"><i class="fas fa-bolt"></i><strong data-ar="رد سريع" data-en="Quick Reply">رد سريع</strong><span data-ar="خلال ساعات قليلة" data-en="Within hours">خلال ساعات قليلة</span></div>
+    <div class="whatsapp-feature"><i class="fas fa-clock"></i><strong data-ar="متاح يومياً" data-en="Available Daily">متاح يومياً</strong><span data-ar="9 صباحاً - 11 مساءً" data-en="9 AM - 11 PM">9 صباحاً - 11 مساءً</span></div>
+    <div class="whatsapp-feature"><i class="fas fa-gift"></i><strong data-ar="استشارة مجانية" data-en="Free Consultation">استشارة مجانية</strong><span data-ar="لتقييم مشروعك" data-en="For your project">لتقييم مشروعك</span></div>
   </div>
 </section>
 
-<!-- WhatsApp Contact -->
-<section id="contact">
-  <div class="section-header reveal">
-    <span class="section-tag">📱 تواصل مباشر</span>
-    <h2 class="section-title">تواصل معي عبر واتساب</h2>
-    <p class="section-subtitle">الطريقة الأسرع والأكثر مباشرة للوصول إليّ والبدء في مشروعك</p>
-  </div>
-
-  <div class="contact-container reveal">
-    <div class="whatsapp-icon-big">
-      <i class="fab fa-whatsapp"></i>
-    </div>
-    <h3>دردشة مباشرة على واتساب</h3>
-    <p>
-      يسعدني التواصل معك والرد على استفساراتك. اضغط على الزر أدناه لبدء محادثة مباشرة
-      وسأرد عليك في أقرب وقت ممكن لمناقشة كيف يمكنني مساعدتك في تحقيق أهدافك التسويقية.
-    </p>
-
-    <a href="https://wa.me/201004498440?text=مرحباً%20المهندس%20أحمد،%20أرغب%20في%20الاستفسار%20عن%20خدماتك%20التسويقية" target="_blank" class="whatsapp-btn">
-      <i class="fab fa-whatsapp"></i>
-      ابدأ المحادثة الآن
-    </a>
-
-    <div class="contact-features">
-      <div class="contact-feature">
-        <i class="fas fa-bolt"></i>
-        <strong>رد سريع</strong>
-        <span>خلال ساعات قليلة</span>
-      </div>
-      <div class="contact-feature">
-        <i class="fas fa-clock"></i>
-        <strong>متاح يومياً</strong>
-        <span>من 9 صباحاً - 11 مساءً</span>
-      </div>
-      <div class="contact-feature">
-        <i class="fas fa-shield-alt"></i>
-        <strong>استشارة مجانية</strong>
-        <span>لتقييم مشروعك</span>
-      </div>
-      <div class="contact-feature">
-        <i class="fas fa-globe"></i>
-        <strong>خدمة عالمية</strong>
-        <span>لجميع الدول العربية</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Footer -->
 <footer>
-  <div class="social-links">
-    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-    <a href="https://wa.me/201004498440" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+  <div class="footer-top">
+    <div class="footer-logo"><img src="https://i.ibb.co/vthQKHt/APEX.png" alt="APEX" onerror="this.style.display='none'"></div>
+    <div class="social-links">
+      <a href="#"><i class="fab fa-linkedin-in"></i></a>
+      <a href="#"><i class="fab fa-facebook-f"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="#"><i class="fab fa-youtube"></i></a>
+      <a href="#"><i class="fab fa-tiktok"></i></a>
+    </div>
   </div>
-  <p>© 2026 المهندس أحمد أشرف - جميع الحقوق محفوظة | صُمم بـ ❤️ وإبداع</p>
+  <div class="footer-bottom">
+    <div data-ar="© 2026 أحمد أشرف - جميع الحقوق محفوظة" data-en="© 2026 Ahmed Ashraf - All Rights Reserved">© 2026 أحمد أشرف - جميع الحقوق محفوظة</div>
+    <div data-ar="صُمم بـ ❤️ وإبداع" data-en="Designed with ❤️ & Creativity">صُمم بـ ❤️ وإبداع</div>
+  </div>
 </footer>
 
 <script>
-  // Custom Cursor
-  const cursor = document.querySelector('.cursor');
-  const follower = document.querySelector('.cursor-follower');
-  if (cursor && follower) {
-    document.addEventListener('mousemove', e => {
-      cursor.style.left = e.clientX + 'px';
-      cursor.style.top = e.clientY + 'px';
-      setTimeout(() => {
-        follower.style.left = e.clientX - 20 + 'px';
-        follower.style.top = e.clientY - 20 + 'px';
-      }, 80);
+  const themeToggle = document.getElementById('themeToggle');
+  const html = document.documentElement;
+  const themeIcon = themeToggle.querySelector('i');
+  const savedTheme = localStorage.getItem('theme') || 'dark';
+  html.setAttribute('data-theme', savedTheme);
+  updateThemeIcon(savedTheme);
+  themeToggle.addEventListener('click', () => {
+    const current = html.getAttribute('data-theme');
+    const next = current === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+    updateThemeIcon(next);
+  });
+  function updateThemeIcon(theme) { themeIcon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon'; }
+
+  const langToggle = document.getElementById('langToggle');
+  let currentLang = localStorage.getItem('lang') || 'ar';
+  applyLanguage(currentLang);
+  langToggle.addEventListener('click', () => {
+    currentLang = currentLang === 'ar' ? 'en' : 'ar';
+    localStorage.setItem('lang', currentLang);
+    applyLanguage(currentLang);
+  });
+  function applyLanguage(lang) {
+    html.setAttribute('lang', lang);
+    html.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+    langToggle.textContent = lang === 'ar' ? 'EN' : 'AR';
+    document.querySelectorAll('[data-ar][data-en]').forEach(el => {
+      const text = el.getAttribute('data-' + lang);
+      if (text !== null) {
+        if (el.children.length === 0) el.textContent = text;
+      }
     });
-    document.querySelectorAll('a, button, .service-card, .project-card').forEach(el => {
-      el.addEventListener('mouseenter', () => {
-        follower.style.width = '60px';
-        follower.style.height = '60px';
-        follower.style.borderColor = 'var(--accent)';
-      });
-      el.addEventListener('mouseleave', () => {
-        follower.style.width = '40px';
-        follower.style.height = '40px';
-        follower.style.borderColor = 'var(--primary)';
-      });
+    document.querySelectorAll('.btn-outline i').forEach(icon => {
+      icon.classList.remove('fa-arrow-left', 'fa-arrow-right');
+      icon.classList.add(lang === 'ar' ? 'fa-arrow-left' : 'fa-arrow-right');
     });
   }
 
-  // Navbar scroll
   window.addEventListener('scroll', () => {
     document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
   });
 
-  // Reveal on scroll
   const reveals = document.querySelectorAll('.reveal');
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('active');
-        if (entry.target.classList.contains('skill-card')) {
-          const bar = entry.target.querySelector('.skill-progress');
-          if (bar) bar.style.width = bar.dataset.width + '%';
-        }
-        if (entry.target.classList.contains('stat-card')) {
-          const num = entry.target.querySelector('.stat-number');
-          if (num && !num.dataset.counted) {
-            num.dataset.counted = 'true';
-            animateCounter(num, +num.dataset.target);
-          }
+        const bar = entry.target.querySelector('.skill-progress');
+        if (bar) bar.style.width = bar.dataset.width + '%';
+        const num = entry.target.querySelector('.stat-number');
+        if (num && !num.dataset.counted) {
+          num.dataset.counted = 'true';
+          let current = 0;
+          const target = +num.dataset.target;
+          const step = target / 60;
+          const timer = setInterval(() => {
+            current += step;
+            if (current >= target) { current = target; clearInterval(timer); }
+            num.textContent = '+' + Math.floor(current);
+          }, 25);
         }
       }
     });
   }, { threshold: 0.15 });
   reveals.forEach(r => observer.observe(r));
 
-  function animateCounter(el, target) {
-    let current = 0;
-    const step = target / 60;
-    const timer = setInterval(() => {
-      current += step;
-      if (current >= target) { current = target; clearInterval(timer); }
-      el.textContent = Math.floor(current) + '+';
-    }, 25);
-  }
+  const heroWrapper = document.getElementById('heroWrapper');
+  document.addEventListener('mousemove', e => {
+    if (!heroWrapper) return;
+    const x = (e.clientX / window.innerWidth - 0.5) * 10;
+    const y = (e.clientY / window.innerHeight - 0.5) * 10;
+    heroWrapper.style.transform = 'rotate(-3deg) translate(' + x + 'px, ' + y + 'px)';
+  });
 
-  // 3D Name Scene - Mouse Interaction (only on desktop)
-  const nameScene = document.getElementById('nameScene');
-  if (nameScene && window.innerWidth > 968) {
-    document.addEventListener('mousemove', e => {
-      const x = (e.clientX / window.innerWidth - 0.5) * 25;
-      const y = (e.clientY / window.innerHeight - 0.5) * 25;
-      nameScene.style.transform = `rotateY(${x}deg) rotateX(${-y}deg)`;
-    });
-  }
-
-  // 3D Tilt for service & project cards (only on desktop)
-  if (window.innerWidth > 968) {
-    document.querySelectorAll('.service-card, .project-card').forEach(card => {
-      card.addEventListener('mousemove', e => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        const cx = rect.width / 2;
-        const cy = rect.height / 2;
-        const rx = ((y - cy) / cy) * -8;
-        const ry = ((x - cx) / cx) * 8;
-        card.style.transform = `perspective(1000px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-10px)`;
-      });
-      card.addEventListener('mouseleave', () => {
-        card.style.transform = '';
-      });
-    });
-  }
-
-  // Smooth scroll for nav links
-  document.querySelectorAll('nav a').forEach(link => {
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
     link.addEventListener('click', e => {
-      e.preventDefault();
       const target = document.querySelector(link.getAttribute('href'));
-      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
     });
   });
+
+  // تفعيل زر القائمة في الموبايل
+  const menuToggleBtn = document.querySelector('.menu-toggle');
+  const navMenuLinks = document.querySelector('.nav-links');
+  const menuIconBtn = menuToggleBtn.querySelector('i');
+
+  if(menuToggleBtn && navMenuLinks) {
+    menuToggleBtn.addEventListener('click', () => {
+      navMenuLinks.classList.toggle('active');
+      
+      // تغيير الأيقونة
+      if (navMenuLinks.classList.contains('active')) {
+        menuIconBtn.classList.replace('fa-bars', 'fa-times');
+      } else {
+        menuIconBtn.classList.replace('fa-times', 'fa-bars');
+      }
+    });
+
+    // إغلاق القائمة عند النقر على أي رابط داخلها
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        navMenuLinks.classList.remove('active');
+        menuIconBtn.classList.replace('fa-times', 'fa-bars');
+      });
+    });
+  }
+
+  // إغلاق القائمة تلقائياً عند الضغط في أي مكان خارجها
+  document.addEventListener('click', function(e) {
+    const menuToggleBtn = document.querySelector('.menu-toggle');
+    const navMenuLinks = document.querySelector('.nav-links');
+    const menuIconBtn = menuToggleBtn ? menuToggleBtn.querySelector('i') : null;
+
+    // التحقق من أن القائمة مفتوحة بالفعل
+    if (navMenuLinks && navMenuLinks.classList.contains('active')) {
+      // إذا كانت الضغطة خارج القائمة المنسدلة وخارج زر القائمة نفسه
+      if (!navMenuLinks.contains(e.target) && !menuToggleBtn.contains(e.target)) {
+        navMenuLinks.classList.remove('active');
+        // إعادة شكل الأيقونة إلى علامة القائمة (Bars) بدلاً من الـ X
+        if (menuIconBtn) {
+          menuIconBtn.classList.replace('fa-times', 'fa-bars');
+        }
+      }
+    }
+  });
+</script>
+
+<script>
+  // جعل الوضع الفاتح هو الافتراضي في التخزين المحلي إن لم يكن مسجلاً من قبل
+  const currentTheme = localStorage.getItem('theme') || 'light';
+  document.documentElement.setAttribute('data-theme', currentTheme);
+
+  // الكود المسؤول عن زر التبديل (أضفه ليتماشى مع كود زر الـ theme لديك)
+  const themeBtn = document.querySelector('.theme-toggle-btn'); // تأكد من اسم الكلاس الخاص بالزر عندك
+  if (themeBtn) {
+    themeBtn.addEventListener('click', () => {
+      let activeTheme = document.documentElement.getAttribute('data-theme');
+      let newTheme = activeTheme === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+    });
+  }
 </script>
 
 </body>
